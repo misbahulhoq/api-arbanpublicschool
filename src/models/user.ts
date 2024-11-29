@@ -59,7 +59,8 @@ userSchema.methods.generateAuthToken = function () {
       isAdmin: this.isAdmin,
       role: this.role,
     },
-    process.env.jwtPrivateKey as string
+    process.env.jwtPrivateKey as string,
+    { expiresIn: "7d" }
   );
 
   return token;
