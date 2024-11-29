@@ -1,11 +1,16 @@
 import express, { Request, Response } from "express";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
+import dotenv from "dotenv";
 
 const app = express();
 const port = process.env.PORT || 8000;
-app.use(express.json());
 
+// middlewares
+app.use(express.json());
+dotenv.config();
+
+// startup
 dbConnect();
 routes(app);
 
