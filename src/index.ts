@@ -2,12 +2,14 @@ import express, { Request, Response } from "express";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
 import dotenv from "dotenv";
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 // middlewares
 app.use(express.json());
+app.use(cors());
 dotenv.config();
 
 // startup
@@ -16,7 +18,7 @@ routes(app);
 
 const basicResponse = {
   status: "success",
-  code: "200",
+  code: 200,
   message: "Request processed successfully",
   devInfo: {
     name: "Md Mezbah Uddin",

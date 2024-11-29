@@ -18,7 +18,10 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let userExists = await User.findOne({ uid: req.body.uid });
-  if (userExists) return res.status(400).send("User already exists.");
+  if (userExists)
+    return res
+      .status(400)
+      .send({ code: "uid-exists", message: "User id already exists." });
 
   let user = new User(req.body);
   user.password = await hashPass(req.body.password);
@@ -37,14 +40,12 @@ authRouter.post("/login", async (req: Request, res: Response) => {
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 
   const token = user.generateAuthToken();
-  res
-    .header("x-auth-token", token)
-    .send({
-      name: user.name,
-      email: user.email,
-      uid: user.uid,
-      loginSuccess: true,
-    });
+  res.header("x-auth-token", token).send({
+    name: user.name,
+    email: user.email,
+    uid: user.uid,
+    loginSuccess: true,
+  });
 });
 
 export default authRouter;
