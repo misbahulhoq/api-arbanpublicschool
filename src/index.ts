@@ -14,13 +14,17 @@ dotenv.config();
 dbConnect();
 routes(app);
 
+const basicResponse = {
+  status: "success",
+  code: "200",
+  message: "Request processed successfully",
+  devInfo: {
+    name: "Md Mezbah Uddin",
+    portfolio: "https://misbahulhoq.vercel.app/",
+  },
+};
 app.get("/", (req: Request, res: Response) => {
-  res.send({
-    status: "success",
-    code: "200",
-    message: "Request processed successfully",
-    data: {},
-  });
+  res.send(basicResponse);
 });
 
 app.listen(port, () => {
