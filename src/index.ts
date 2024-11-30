@@ -14,6 +14,8 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
+    // allowedHeaders: [""],
+    exposedHeaders: ["authToken"],
   })
 );
 app.use(cookieParser());

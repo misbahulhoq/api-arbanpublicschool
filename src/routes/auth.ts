@@ -41,15 +41,7 @@ authRouter.post("/login", async (req: Request, res: Response) => {
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 
   const token = user.generateAuthToken();
-
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: false,
-    sameSite: "lax",
-    //maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-    maxAge: 5 * 60 * 1000, //5 minutes
-  });
-  res.status(200).send({
+  res.header("authToken", token).send({
     name: user.name,
     email: user.email,
     uid: user.uid,
