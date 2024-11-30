@@ -38,6 +38,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send(basicResponse);
 });
 
-app.listen(port, () => {
+let server = app.listen(port, () => {
   console.log("server is running at http://localhost:" + port);
 });
+
+export default server;

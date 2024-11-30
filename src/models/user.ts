@@ -80,9 +80,9 @@ type User = {
 function validateUser(user: User) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(50).required(),
-    uid: Joi.string().min(6).max(6),
+    uid: Joi.string().min(6).max(6).required(),
     email: Joi.string().min(8).max(50).required(),
-    password: Joi.string().min(6),
+    password: Joi.string().min(6).required(),
     role: Joi.string().min(6).max(20).required(),
     isAdmin: Joi.boolean(),
   });
