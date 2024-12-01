@@ -6,7 +6,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
-    "test": "NODE_ENV=test jest --watchAll --detectOpenHandles",
+    "test": "NODE_ENV=test jest --watchAll --detectOpenHandles --verbose",
     "test-prod": "jest --config jest.config.prod.js"
   },
   "keywords": [],

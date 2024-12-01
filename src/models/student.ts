@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
 type StudentType = {
   name: string;
@@ -37,16 +37,16 @@ const studentSchema = new Schema({
   },
 });
 
-const Student = new Model("student", studentSchema);
+const Student = model("student", studentSchema);
 
 function validateStudent(student: StudentType) {
   const schema = Joi.object({
-    name: Joi.string().required(),
-    uid: Joi.string().required(),
-    class: Joi.string().required(),
-    phone: Joi.string().required(),
-    fathersName: Joi.string().required(),
-    mothersName: Joi.string().required(),
+    name: Joi.string().min(3).required(),
+    uid: Joi.string().min(6).max(6).required(),
+    class: Joi.string().min(1).max(2).required(),
+    phone: Joi.string().min(11).max(20).required(),
+    fathersName: Joi.string().min(3).required(),
+    mothersName: Joi.string().min(3).required(),
   });
   return schema.validate(student);
 }

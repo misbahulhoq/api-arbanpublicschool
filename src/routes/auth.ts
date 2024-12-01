@@ -33,7 +33,7 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
   let user = new User(req.body);
   user.password = await hashPass(req.body.password);
   user = await user.save();
-  res.send({ _id: user._id, name: user.name, uid: user.uid });
+  res.send({ _id: user._id, uid: user.uid });
 });
 
 authRouter.post("/login", async (req: Request, res: Response) => {
@@ -48,7 +48,6 @@ authRouter.post("/login", async (req: Request, res: Response) => {
 
   const token = user.generateAuthToken();
   res.header("authToken", token).send({
-    name: user.name,
     email: user.email,
     uid: user.uid,
     loginSuccess: true,

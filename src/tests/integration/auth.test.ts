@@ -17,14 +17,12 @@ describe("auth/signup", () => {
 
   describe("/POST", () => {
     let email: string | undefined,
-      name: string | undefined,
       password: string | undefined,
       uid: string | undefined,
       role: string | undefined;
 
     beforeEach(() => {
       email = "test@email.com";
-      name = "realname";
       password = "truepass";
       uid = "123456";
       role = "student";
@@ -33,17 +31,11 @@ describe("auth/signup", () => {
     const execute = () => {
       return request(server)
         .post("/auth/signup")
-        .send({ email, name, password, uid, role });
+        .send({ email, password, uid, role });
     };
 
     it("should return 400 if email is not provided", async () => {
       email = undefined;
-      const response = await execute();
-      expect(response.status).toBe(400);
-    });
-
-    it("should return 400 if name is not provided", async () => {
-      name = undefined;
       const response = await execute();
       expect(response.status).toBe(400);
     });
@@ -73,7 +65,6 @@ describe("auth/signup", () => {
       const response = await request(server).post("/auth/signup").send({
         email: "test@gmail.com",
         uid: "123456",
-        name: "testname",
         password: "testpass",
         role: "teacher",
         isAdmin: true,
@@ -84,7 +75,6 @@ describe("auth/signup", () => {
       const response = await request(server).post("/auth/signup").send({
         email: "test@gmail.com",
         uid: "123456",
-        name: "testname",
         password: "testpass",
         role: "teacher",
       });
