@@ -53,7 +53,7 @@ userSchema.methods.generateAuthToken = function () {
       role: this.role,
     },
     process.env.jwtPrivateKey as string,
-    { expiresIn: 300 }
+    { expiresIn: "7d" }
   );
 
   return token;
