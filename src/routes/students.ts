@@ -20,4 +20,22 @@ studentsRouter.post(
   }
 );
 
+studentsRouter.get(
+  "/",
+  verifyUser,
+  verifyTeacher,
+  async (req: Request, res: Response) => {
+    const validClasses = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    if (!validClasses.includes(req.query?.class as string)) {
+      return res
+        .status(400)
+        .send("The class is not valid.. Class must be between 1 and 10.");
+    }
+    const query = { class: req.query?.class };
+
+    const students = await Student.find(req.query.class ? query : {});
+    res.send(students);
+  }
+);
+
 export default studentsRouter;
