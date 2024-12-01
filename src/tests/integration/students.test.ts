@@ -148,4 +148,46 @@ describe("/students", () => {
       expect(response.status).toBe(200);
     });
   });
+  describe("/GET", () => {
+    let user = new User({
+      email: "test@gmail.com",
+      password: "asldjkf",
+      role: "teacher",
+      uid: "123445",
+    });
+    let authToken: any;
+    beforeEach(() => {
+      authToken = user.generateAuthToken();
+    });
+    afterEach(() => {
+      user.role = "teacher";
+    });
+    const execute = () => {
+      return request(server).get("/students").set("authToken", authToken);
+    };
+
+    it("should return 400 if authToken is not provided", async () => {
+      authToken = "";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+
+    it("should return 401 if authToken is not valid", async () => {
+      authToken = "some invalid token";
+      const response = await execute();
+      expect(response.status).toBe(401);
+    });
+    it("should return 403 if user is not teacher", async () => {
+      user.role = "student";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if query is not between 1 and 10", async () => {
+      const response = await request(server)
+        .get("/students")
+        .query({ class: "15" })
+        .set("authToken", authToken);
+      expect(response.status).toBe(400);
+    });
+  });
 });
