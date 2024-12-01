@@ -69,7 +69,27 @@ describe("auth/signup", () => {
       const response = await execute();
       expect(response.status).toBe(400);
     });
-
+    it("should return 400 if someone tries to add an admin from the request", async () => {
+      const response = await request(server).post("/auth/signup").send({
+        email: "test@gmail.com",
+        uid: "123456",
+        name: "testname",
+        password: "testpass",
+        role: "teacher",
+        isAdmin: true,
+      });
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if someone tries to add a teacher from the request", async () => {
+      const response = await request(server).post("/auth/signup").send({
+        email: "test@gmail.com",
+        uid: "123456",
+        name: "testname",
+        password: "testpass",
+        role: "teacher",
+      });
+      expect(response.status).toBe(400);
+    });
     it("should return 200 if valid signup data is passed", async () => {
       const response = await execute();
       expect(response.status).toBe(200);

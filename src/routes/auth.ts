@@ -18,6 +18,12 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
   const { error } = validateUser(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
+  if (req.body.hasOwnProperty("isAdmin") || req.body["role"] !== "student") {
+    return res
+      .status(400)
+      .send("Only student signup is allowed from the frontend.");
+  }
+
   let userExists = await User.findOne({ uid: req.body.uid });
   if (userExists)
     return res
