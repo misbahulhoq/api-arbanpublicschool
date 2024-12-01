@@ -22,8 +22,20 @@
 
 ### /auth
 
+#### Post methods
+
 - in /signup route providing `name`, `uid`, `email`, `password`, `role` is compulsory. Else 400 status code is sent
 - if a valid request is sent the user is gonna be signed up. One can't use one `uid` twice.
 - `passwords` are hashed before it is saved to the database for security reasons.
 - in /login route if valid `uid` and `password` is sent, an `authToken` is generated and sent in the header.
+
+#### Get Methods
+
 - in /me route the client must has to provide a valid `authToken`. 400 status is sent if no token provided from the client and 401 is sent if the sent token is not valid.
+
+### /students
+
+#### Post methods
+
+- in /students route the client must provide these properties `name`, `uid`, `class`, `phone`, `fathersName`, `mothersName`. All of these are strings
+- Any invalid property related errors will be sent from the server, the client must handle those errors properly
