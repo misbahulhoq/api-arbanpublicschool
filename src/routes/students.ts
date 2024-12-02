@@ -22,8 +22,8 @@ studentsRouter.post(
 
 studentsRouter.get(
   "/",
-  // verifyUser,
-  // verifyTeacher,
+  verifyUser,
+  verifyTeacher,
   async (req: Request, res: Response) => {
     const validClasses = [
       "1",
