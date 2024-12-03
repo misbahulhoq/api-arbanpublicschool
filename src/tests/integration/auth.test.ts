@@ -2,6 +2,7 @@ import request from "supertest";
 import { User } from "../../models/user";
 import svr from "../..";
 import { Server, IncomingMessage, ServerResponse } from "http";
+import { Student } from "../../models/student";
 // @ts-ignore
 let server: Server<IncomingMessage, ServerResponse>;
 
@@ -20,12 +21,24 @@ describe("auth/signup", () => {
       password: string | undefined,
       uid: string | undefined,
       role: string | undefined;
+    const student = new Student({
+      name: "abcd",
+      fathersName: "abcd",
+      mothersName: "abcd",
+      phone: "01234547891",
+      uid: "123456",
+      class: "7",
+    });
 
-    beforeEach(() => {
+    beforeEach(async () => {
       email = "test@email.com";
       password = "truepass";
       uid = "123456";
       role = "student";
+      await student.save();
+    });
+    afterEach(async () => {
+      // await student.deleteOne();
     });
 
     const execute = () => {
@@ -58,6 +71,11 @@ describe("auth/signup", () => {
     it("should return 400 if one uid is provided more than once", async () => {
       await execute();
       uid = "123456";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if the uid does not match with the database", async () => {
+      uid = "123455";
       const response = await execute();
       expect(response.status).toBe(400);
     });
