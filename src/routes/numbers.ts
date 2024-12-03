@@ -36,14 +36,19 @@ numbersRouter.post(
   }
 );
 
-numbersRouter.get("/", verifyUser, async (req: Request, res: Response) => {
-  const query = req.query.uid;
-  if (query) {
-    const numbers = await Num.find({ uid: query });
-    return res.send(numbers);
+numbersRouter.get(
+  "/",
+  verifyUser,
+  verifyTeacher,
+  async (req: Request, res: Response) => {
+    const query = req.query.uid;
+    if (query) {
+      const numbers = await Num.find({ uid: query });
+      return res.send(numbers);
+    }
+    const numbers = await Num.find();
+    res.send(numbers);
   }
-  const numbers = await Num.find();
-  res.send(numbers);
-});
+);
 
 export default numbersRouter;

@@ -24,7 +24,7 @@
 
 #### Post methods
 
-- in /signup route providing `name`, `uid`, `email`, `password`, `role` is compulsory. Else 400 status code is sent
+- in /signup route providing `uid`, `email`, `password`, `role` is compulsory. Else 400 status code is sent. The provided `uid` will be first matched with the database, if the uid is not found in the database ,[!400] status will be sent.
 - if a valid request is sent the user is gonna be signed up. One can't use one `uid` twice.
 - `passwords` are hashed before it is saved to the database for security reasons.
 - in /login route if valid `uid` and `password` is sent, an `authToken` is generated and sent in the header.
@@ -39,3 +39,16 @@
 
 - in /students route the client must provide these properties `name`, `uid`, `class`, `phone`, `fathersName`, `mothersName`. All of these are strings
 - Any invalid property related errors will be sent from the server, the client must handle those errors properly
+
+### /numbers [This route is for adding marks/numbers]
+
+#### Post methods
+
+- in /numbers route the client must provide uid, examCode, exam[e.g. 1st tutorial], an array of numbers which will contain multiple objects with key/value pairs. Each object will have 3 properties-> `sub` short for Subject, `fullMarks`, `obtMarks`
+- Exam codes and meanings are Year01 for First Tutorial, Year02 for First Semester, Year03 for Second Tutorial, Year04 for Second Semester, Year05 for Third Tutorial, Year06 for Third Semester.
+- In order to post a number the client must be a teacher.
+
+#### Get method(s)
+
+- in /number route the server sends all the numbers that are saved in the database.
+- To get all the numbers the client must be a teacher.
