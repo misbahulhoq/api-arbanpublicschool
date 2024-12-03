@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { User, validateUser } from "../models/user";
 import bcrypt from "bcrypt";
 import { verifyUser } from "../middlewares/auth";
+import { Student } from "../models/student";
 const authRouter = express.Router();
 
 async function hashPass(pass: string) {
@@ -23,6 +24,9 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
       .status(400)
       .send("Only student signup is allowed from the frontend.");
   }
+
+  const validUid = await Student.findOne({ uid: req.body.uid });
+  if (!validUid) return res.status(400).send("You provided something wrong.");
 
   let userExists = await User.findOne({ uid: req.body.uid });
   if (userExists)
