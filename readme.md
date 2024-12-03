@@ -40,6 +40,11 @@
 - in /students route the client must provide these properties `name`, `uid`, `class`, `phone`, `fathersName`, `mothersName`. All of these are strings
 - Any invalid property related errors will be sent from the server, the client must handle those errors properly
 
+#### Get method(s)
+
+- /students/uid route will send a single student's info. If no student found it will return 404.
+- To get a student info providing valid authToken from the frontend is a must.
+
 ### /numbers [This route is for adding marks/numbers]
 
 #### Post methods
