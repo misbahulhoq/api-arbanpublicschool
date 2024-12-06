@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { verifyTeacher, verifyUser } from "../middlewares/auth";
+import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { Num, validateNumber } from "../models/number";
 import { Student } from "../models/student";
 
@@ -48,6 +48,21 @@ numbersRouter.get(
     }
     const numbers = await Num.find();
     res.send(numbers);
+  }
+);
+
+numbersRouter.put(
+  "/:uid",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req: Request, res: Response) => {
+    const foundNumber = await Num.findOneAndUpdate(
+      { uid: req.params.uid },
+      req.body
+    );
+
+    res.send(foundNumber);
   }
 );
 

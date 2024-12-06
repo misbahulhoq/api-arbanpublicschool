@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
     "test": "NODE_ENV=test jest --watchAll --detectOpenHandles --verbose",
-    "test-prod": "jest --config jest.config.prod.js"
+    "test-prod": "NODE_ENV=test jest --config jest.config.prod.js"
   },
   "keywords": [],
   "author": "Md Mezbah Uddin",
