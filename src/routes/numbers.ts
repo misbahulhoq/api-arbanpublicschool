@@ -51,6 +51,13 @@ numbersRouter.get(
   }
 );
 
+numbersRouter.get("/:uid", verifyUser, async (req: Request, res: Response) => {
+  console.log(req.params.uid);
+  const number = await Num.findOne({ uid: req.params.uid });
+  console.log(number);
+  res.send(number);
+});
+
 numbersRouter.put(
   "/:uid",
   verifyUser,
