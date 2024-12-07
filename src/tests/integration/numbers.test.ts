@@ -35,6 +35,7 @@ describe("/numbers", () => {
       await new Student({
         uid: "123456",
         class: "7",
+        email: "xyz@arban.com",
         fathersName: "abc",
         mothersName: "abc",
         name: "abcde",

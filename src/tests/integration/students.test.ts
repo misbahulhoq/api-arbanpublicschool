@@ -27,6 +27,7 @@ describe("/students", () => {
       uid: string | undefined,
       className: string | undefined,
       phone: string | undefined,
+      email: string | undefined,
       fathersName: string | undefined,
       mothersName: string | undefined,
       authToken: any;
@@ -36,6 +37,7 @@ describe("/students", () => {
       uid = "123456";
       className = "7";
       phone = "01521377999";
+      email = "xyz@arban.com";
       fathersName = "abc";
       mothersName = "cdb";
       authToken = user.generateAuthToken();
@@ -52,6 +54,7 @@ describe("/students", () => {
           uid,
           class: className,
           phone,
+          email,
           fathersName,
           mothersName,
         });
@@ -127,6 +130,21 @@ describe("/students", () => {
       const response = await execute();
       expect(response.status).toBe(400);
     });
+    it("should return 400 if email is not provided", async () => {
+      email = undefined;
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if email is less than 12 characters", async () => {
+      email = "abc";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if email is greater than 20 characters", async () => {
+      email = "0123456789145454545454545454";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
     it("should return 400 if fathersName is not provided", async () => {
       fathersName = undefined;
       const response = await execute();
@@ -148,6 +166,7 @@ describe("/students", () => {
       expect(response.status).toBe(200);
     });
   });
+
   describe("/GET", () => {
     let user = new User({
       email: "test@gmail.com",

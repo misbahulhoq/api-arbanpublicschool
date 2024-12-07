@@ -20,22 +20,27 @@ describe("auth/signup", () => {
     let email: string | undefined,
       password: string | undefined,
       uid: string | undefined,
-      role: string | undefined;
+      role: string | undefined,
+      phone: string | undefined;
+
+    // saving a student in the student collection
     const student = new Student({
       name: "abcd",
       fathersName: "abcd",
       mothersName: "abcd",
       phone: "01234547891",
+      email: "xyz@arban.com",
       uid: "123456",
       class: "7",
     });
 
     beforeEach(async () => {
-      email = "test@email.com";
+      // sending signup post request with the valid info of the signup method
+      email = "xyz@arban.com";
       password = "truepass";
       uid = "123456";
       role = "student";
-      await student.save();
+      (phone = "01234547891"), await student.save();
     });
     afterEach(async () => {
       // await student.deleteOne();
@@ -44,7 +49,7 @@ describe("auth/signup", () => {
     const execute = () => {
       return request(server)
         .post("/auth/signup")
-        .send({ email, password, uid, role });
+        .send({ email, password, uid, role, phone });
     };
 
     it("should return 400 if email is not provided", async () => {
@@ -52,7 +57,6 @@ describe("auth/signup", () => {
       const response = await execute();
       expect(response.status).toBe(400);
     });
-
     it("should return 400 if password is not provided", async () => {
       password = undefined;
       const response = await execute();
@@ -76,6 +80,16 @@ describe("auth/signup", () => {
     });
     it("should return 400 if the uid does not match with the database", async () => {
       uid = "123455";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if the email does not match with the database", async () => {
+      email = "abc@xyz.com";
+      const response = await execute();
+      expect(response.status).toBe(400);
+    });
+    it("should return 400 if the phone does not match with the database", async () => {
+      phone = "01111155555";
       const response = await execute();
       expect(response.status).toBe(400);
     });

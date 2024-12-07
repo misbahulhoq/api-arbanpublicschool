@@ -25,8 +25,13 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
       .send("Only student signup is allowed from the frontend.");
   }
 
-  const validUid = await Student.findOne({ uid: req.body.uid });
-  if (!validUid) return res.status(400).send("You provided something wrong.");
+  const validStudent = await Student.findOne({
+    uid: req.body.uid,
+    email: req.body.email,
+    phone: req.body.phone,
+  });
+  if (!validStudent)
+    return res.status(400).send("You provided something wrong.");
 
   let userExists = await User.findOne({ uid: req.body.uid });
   if (userExists)
@@ -37,7 +42,7 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
   let user = new User(req.body);
   user.password = await hashPass(req.body.password);
   user = await user.save();
-  res.send({ _id: user._id, uid: user.uid });
+  res.send({ _id: user._id, uid: user.uid, email: user.email });
 });
 
 authRouter.post("/login", async (req: Request, res: Response) => {
