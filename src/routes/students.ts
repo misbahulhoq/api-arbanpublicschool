@@ -57,4 +57,23 @@ studentsRouter.get("/:uid", async (req: Request, res: Response) => {
   res.send(student);
 });
 
+studentsRouter.put(
+  "/:uid",
+  verifyUser,
+  verifyTeacher,
+  async (req: Request, res: Response) => {
+    // const uid = req.params.uid;
+    const studentFound = await Student.findOne({ uid: req.params.uid });
+    if (!studentFound)
+      return res.status(404).send("No student found with the provided uid");
+
+    const updated = await Student.findOneAndUpdate(
+      { uid: req.params.uid },
+      req.body,
+      { returnDocument: "after" }
+    );
+    res.send(updated);
+  }
+);
+
 export default studentsRouter;
