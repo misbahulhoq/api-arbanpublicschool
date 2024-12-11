@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { verifyTeacher, verifyUser } from "../middlewares/auth";
+import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { Student, validateStudent } from "../models/student";
 const studentsRouter = express.Router();
 
@@ -73,6 +73,21 @@ studentsRouter.put(
       { returnDocument: "after" }
     );
     res.send(updated);
+  }
+);
+
+studentsRouter.delete(
+  "/:uid",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req: Request, res: Response) => {
+    const studentFound = await Student.findOne({ uid: req.params.uid });
+    if (!studentFound)
+      return res.status(404).send("No student found with the provided uid");
+
+    const response = await Student.deleteOne({ uid: req.params.uid });
+    res.send(response);
   }
 );
 
