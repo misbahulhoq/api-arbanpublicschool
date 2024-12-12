@@ -12,10 +12,12 @@ const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://192.168.31.27:3000"],
+    // origin: "*",
     credentials: true,
-    allowedHeaders: ["Authorization", "authToken", "Content-Type"],
+    allowedHeaders: ["Authorization", "authToken", "Content-Type", "authtoken"],
     exposedHeaders: ["authToken"],
+    methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
   })
 );
 app.use(cookieParser());
