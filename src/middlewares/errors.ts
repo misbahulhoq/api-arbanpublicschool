@@ -1,25 +1,33 @@
-import type { ErrorRequestHandler } from "express";
+import type {
+  ErrorRequestHandler,
+  NextFunction,
+  Request,
+  Response,
+} from "express";
+import { envValidator } from "../utils/envValidator";
 
-export const envErrors = () => {
-  const error = new Error();
+const requiredEnv = [
+  "jwtPrivateKey",
+  "dbUserName",
+  "dbPass",
+  "email_address",
+  "email_pass",
+];
 
-  if (!process.env.jwtPrivateKey) {
-    // throw new Error("jwt private key is not defined.");
-    error.message = "jwt private key is not defined.";
-  }
-  if (!process.env.dbUserName) {
-    throw new Error("database username is not defined.");
-  }
-  if (!process.env.dbPass) {
-    throw new Error("database password is not defined.");
-  }
-  if (!process.env.email_address) {
-    throw new Error("email address is not defined.");
-  }
-  if (!process.env.email_pass) {
-    throw new Error("email password is not defined.");
+export const envValidatorMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    envValidator(requiredEnv);
+    next();
+  } catch (ex) {
+    next(ex);
   }
 };
-const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {};
+const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.log(err);
+};
 
 export default globalErrorHandler;

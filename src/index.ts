@@ -4,6 +4,9 @@ import routes from "./startup/routes";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import globalErrorHandler, {
+  envValidatorMiddleware,
+} from "./middlewares/errors";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -16,6 +19,7 @@ else if (process.env.NODE_ENV === "production")
 
 // middlewares
 app.use(express.json());
+app.use(envValidatorMiddleware);
 app.use(
   cors({
     origin: origin,
@@ -31,6 +35,8 @@ dotenv.config();
 // startup
 dbConnect();
 routes(app);
+// global error handling middleware
+app.use(globalErrorHandler);
 
 const basicResponse = {
   status: "success",
