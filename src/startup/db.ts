@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const db = "arban";
+const db = process.env.NODE_ENV === "test" ? "arban-test" : "arban";
 export function dbConnect() {
   mongoose
     .connect(

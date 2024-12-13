@@ -3,9 +3,9 @@ import mongoose, { Model, Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 
 interface IUser {
-  name: string;
   uid?: string;
   email: string;
+  phone: string;
   password: string;
   role: string;
   isAdmin?: boolean;
@@ -18,12 +18,6 @@ interface IUserMethods {
 type UserModel = Model<IUser, {}, IUserMethods>;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50,
-  },
   // stands for user id
   uid: {
     type: String,
@@ -35,6 +29,11 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
     required: true,
     minlength: 8,
     maxlength: 50,
+  },
+  phone: {
+    type: String,
+    required: true,
+    minlength: 11,
   },
   password: {
     type: String,
@@ -56,10 +55,13 @@ userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     {
       _id: this._id,
+      uid: this.uid,
+      email: this.email,
       isAdmin: this.isAdmin,
       role: this.role,
     },
-    process.env.jwtPrivateKey as string
+    process.env.jwtPrivateKey as string,
+    { expiresIn: "7d" }
   );
 
   return token;
@@ -68,20 +70,20 @@ userSchema.methods.generateAuthToken = function () {
 const User = mongoose.model<IUser, UserModel>("user", userSchema);
 
 type User = {
-  name: String;
-  uid: String;
-  email: String;
-  password: String;
-  role: String;
-  isAdmin?: Boolean;
+  uid: string;
+  email: string;
+  phone: string;
+  password: string;
+  role: string;
+  isAdmin?: boolean;
 };
 
 function validateUser(user: User) {
   const schema = Joi.object({
-    name: Joi.string().min(5).max(50).required(),
-    uid: Joi.string().min(6).max(6),
+    uid: Joi.string().min(6).max(6).required(),
     email: Joi.string().min(8).max(50).required(),
-    password: Joi.string().min(6),
+    phone: Joi.string().min(11).max(15).required(),
+    password: Joi.string().min(6).required(),
     role: Joi.string().min(6).max(20).required(),
     isAdmin: Joi.boolean(),
   });
