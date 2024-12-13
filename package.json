@@ -41,6 +41,7 @@
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
-    "mongoose": "^8.8.3"
+    "mongoose": "^8.8.3",
+    "nodemailer": "^6.9.16"
   }
 }

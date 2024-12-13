@@ -7,13 +7,18 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const port = process.env.PORT || 8000;
+let origin;
+
+if (process.env.NODE_ENV === "development")
+  origin = ["http://localhost:3000", "http://192.168.31.27:3000"];
+else if (process.env.NODE_ENV === "production")
+  origin = ["https://arbanpublicschool.vercel.app/"];
 
 // middlewares
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://192.168.31.27:3000"],
-    // origin: "*",
+    origin: origin,
     credentials: true,
     allowedHeaders: ["Authorization", "authToken", "Content-Type", "authtoken"],
     exposedHeaders: ["authToken"],
