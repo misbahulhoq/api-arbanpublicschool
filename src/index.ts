@@ -1,19 +1,29 @@
 import express, { Request, Response } from "express";
+import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import globalErrorHandler, {
+  envValidatorMiddleware,
+} from "./middlewares/errors";
 
 const app = express();
 const port = process.env.PORT || 8000;
+let origin;
+
+if (process.env.NODE_ENV === "development")
+  origin = ["http://localhost:3000", "http://192.168.31.27:3000"];
+else if (process.env.NODE_ENV === "production")
+  origin = ["https://arbanpublicschool.vercel.app/"];
 
 // middlewares
 app.use(express.json());
+app.use(envValidatorMiddleware);
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://192.168.31.27:3000"],
-    // origin: "*",
+    origin: origin,
     credentials: true,
     allowedHeaders: ["Authorization", "authToken", "Content-Type", "authtoken"],
     exposedHeaders: ["authToken"],
@@ -26,6 +36,8 @@ dotenv.config();
 // startup
 dbConnect();
 routes(app);
+// global error handling middleware
+app.use(globalErrorHandler);
 
 const basicResponse = {
   status: "success",

@@ -1,14 +1,24 @@
-import e, { Request, Response } from "express";
+import e, { NextFunction, Request, Response } from "express";
 import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import Teacher, { validateTeacher } from "../models/teacher";
 import { Student } from "../models/student";
 
 const teachersRouter = e.Router();
 
-teachersRouter.get("/", verifyUser, async (req: Request, res: Response) => {
-  const allTeachers = await Teacher.find();
-  res.send(allTeachers);
-});
+teachersRouter.get(
+  "/",
+  verifyUser,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      throw new Error("test error");
+    } catch (ex) {
+      next(ex);
+    }
+
+    const allTeachers = await Teacher.find();
+    res.send(allTeachers);
+  }
+);
 
 teachersRouter.post(
   "/",

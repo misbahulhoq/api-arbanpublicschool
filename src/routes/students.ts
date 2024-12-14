@@ -24,7 +24,7 @@ studentsRouter.get(
   "/",
   verifyUser,
   verifyTeacher,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next) => {
     const validClasses = [
       "1",
       "2",
