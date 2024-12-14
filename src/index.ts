@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
 import dotenv from "dotenv";
