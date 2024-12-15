@@ -48,6 +48,7 @@ const basicResponse = {
     portfolio: "https://misbahulhoq.vercel.app/",
   },
 };
+
 app.get("/", (req: Request, res: Response) => {
   res.send(basicResponse);
 });
