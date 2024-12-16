@@ -36,7 +36,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+exports.server = void 0;
+const express_1 = __importDefault(require("express")); // Optional: Vercel-specific types
 require("express-async-errors");
 const db_1 = require("./startup/db");
 const routes_1 = __importDefault(require("./startup/routes"));
@@ -45,7 +46,6 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const errors_1 = __importStar(require("./middlewares/errors"));
 const app = (0, express_1.default)();
-const port = process.env.PORT || 8000;
 let origin;
 if (process.env.NODE_ENV === "development")
     origin = ["http://localhost:3000", "http://192.168.31.27:3000"];
@@ -80,7 +80,13 @@ const basicResponse = {
 app.get("/", (req, res) => {
     res.send(basicResponse);
 });
+const port = process.env.PORT || 8000;
 let server = app.listen(port, () => {
     console.log("server is running at http://localhost:" + port);
 });
-exports.default = server;
+exports.server = server;
+// Create a serverless function handler
+const serverlessHandler = (req, res) => {
+    app(req, res); // Pass requests to Express app
+};
+exports.default = serverlessHandler;

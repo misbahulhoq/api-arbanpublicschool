@@ -6,4 +6,3 @@ node_modules/*
 /coverage
 *.log
 .vercel
-.vercelignore
