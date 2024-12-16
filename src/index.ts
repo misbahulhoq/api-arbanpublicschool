@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from "express"; // Optional: Vercel-specific types
 import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
@@ -58,6 +58,13 @@ let server = app.listen(port, () => {
   console.log("server is running at http://localhost:" + port);
 });
 
-export default app;
+// Create a serverless function handler
+const serverlessHandler = (req: any, res: any) => {
+  app(req as any, res as any); // Pass requests to Express app
+};
+
+export default serverlessHandler;
+
+// export default app;
 
 export { server };
