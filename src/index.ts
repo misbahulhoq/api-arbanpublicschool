@@ -58,4 +58,6 @@ let server = app.listen(port, () => {
   console.log("server is running at http://localhost:" + port);
 });
 
-export default server;
+export default app;
+
+export { server };
