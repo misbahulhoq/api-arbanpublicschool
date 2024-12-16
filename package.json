@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/dist/index.js",
+    "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
     "test": "NODE_ENV=test jest --watchAll --detectOpenHandles --verbose --coverage",
     "test-prod": " jest --config jest.config.prod.js",
