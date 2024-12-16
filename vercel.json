@@ -7,5 +7,5 @@
     }
   ],
 
-  "rewrites": [{ "source": "/(.*)", "destination": "/dist/api" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
 }
