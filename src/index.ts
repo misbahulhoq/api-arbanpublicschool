@@ -52,6 +52,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send(basicResponse);
 });
 
+console.log("something");
+
 let server = app.listen(port, () => {
   console.log("server is running at http://localhost:" + port);
 });
