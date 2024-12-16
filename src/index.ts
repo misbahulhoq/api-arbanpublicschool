@@ -52,7 +52,6 @@ app.get("/", (req: Request, res: Response) => {
   res.send(basicResponse);
 });
 
-console.log("something");
 const port = process.env.PORT || 8000;
 let server = app.listen(port, () => {
   console.log("server is running at http://localhost:" + port);
