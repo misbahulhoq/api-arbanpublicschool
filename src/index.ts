@@ -3,6 +3,7 @@ import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
 import dotenv from "dotenv";
+dotenv.config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import globalErrorHandler, {
@@ -12,7 +13,7 @@ import globalErrorHandler, {
 const app = express();
 
 let origin;
-
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "development")
   origin = ["http://localhost:3000", "http://192.168.31.27:3000"];
 else origin = ["https://arbanpublicschool.vercel.app"];
@@ -30,7 +31,6 @@ app.use(
   })
 );
 app.use(cookieParser());
-dotenv.config();
 
 // startup
 dbConnect();
