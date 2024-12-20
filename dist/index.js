@@ -42,6 +42,7 @@ require("express-async-errors");
 const db_1 = require("./startup/db");
 const routes_1 = __importDefault(require("./startup/routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const errors_1 = __importStar(require("./middlewares/errors"));
@@ -62,7 +63,6 @@ app.use((0, cors_1.default)({
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
 }));
 app.use((0, cookie_parser_1.default)());
-dotenv_1.default.config();
 // startup
 (0, db_1.dbConnect)();
 (0, routes_1.default)(app);

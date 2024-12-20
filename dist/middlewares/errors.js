@@ -43,12 +43,16 @@ const requiredEnv = [
     "dbPass",
     "email_address",
     "email_pass",
+    "info_email",
+    "contact_email",
+    "contact_email_app_pass",
 ];
 const logger = (0, winston_1.createLogger)({
     level: "error",
     format: combine(timestamp(), json()),
     transports: [
         new winston_1.default.transports.File({ filename: "errors.log", level: "error" }),
+        new winston_1.default.transports.Console(),
     ],
 });
 const envValidatorMiddleware = (req, res, next) => {
