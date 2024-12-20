@@ -13,7 +13,7 @@ import globalErrorHandler, {
 const app = express();
 
 let origin;
-console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV === "development")
   origin = ["http://localhost:3000", "http://192.168.31.27:3000"];
 else origin = ["https://arbanpublicschool.vercel.app"];
