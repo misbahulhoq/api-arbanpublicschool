@@ -6,7 +6,7 @@ type IssueType = {
   subject?: string;
   issue: string;
   priority: "low" | "medium" | "high";
-  status: string;
+  status: "open" | "pending" | "closed";
 };
 const issueSchema = new Schema({
   submittedBy: {

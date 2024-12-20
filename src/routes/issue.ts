@@ -1,6 +1,6 @@
 import express from "express";
 import Issue, { validateIssue } from "../models/issue";
-import { verifyTeacher, verifyUser } from "../middlewares/auth";
+import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 const issuesRouter = express.Router();
 
 issuesRouter.post("/", async (req, res) => {
@@ -16,6 +16,16 @@ issuesRouter.post("/", async (req, res) => {
 issuesRouter.get("/", verifyUser, verifyTeacher, async (req, res) => {
   const issues = await Issue.find();
   res.send(issues);
+});
+issuesRouter.delete("/:id", verifyUser, verifyAdmin, async (req, res) => {
+  const foundIssue = await Issue.findOne({ _id: req.params.id });
+
+  if (!foundIssue)
+    return res
+      .status(404)
+      .send({ message: "No issue found with the given id" });
+  const deleted = await Issue.deleteOne({ _id: req.params.id });
+  res.send(deleted);
 });
 
 export default issuesRouter;
