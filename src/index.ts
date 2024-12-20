@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express"; // Optional: Vercel-specific types
+import express, { Request, Response } from "express";
 import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
@@ -11,7 +11,6 @@ import globalErrorHandler, {
 } from "./middlewares/errors";
 
 const app = express();
-
 let origin;
 
 if (process.env.NODE_ENV === "development")
@@ -21,6 +20,7 @@ else origin = ["https://arbanpublicschool.vercel.app"];
 // middlewares
 app.use(express.json());
 app.use(envValidatorMiddleware);
+app.use(cookieParser());
 app.use(
   cors({
     origin: origin,
@@ -30,7 +30,6 @@ app.use(
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
   })
 );
-app.use(cookieParser());
 
 // startup
 dbConnect();
@@ -63,7 +62,4 @@ const serverlessHandler = (req: any, res: any) => {
 };
 
 export default serverlessHandler;
-
-// export default app;
-
 export { server };
