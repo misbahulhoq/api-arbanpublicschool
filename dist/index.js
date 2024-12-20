@@ -37,7 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.server = void 0;
-const express_1 = __importDefault(require("express")); // Optional: Vercel-specific types
+const express_1 = __importDefault(require("express"));
 require("express-async-errors");
 const db_1 = require("./startup/db");
 const routes_1 = __importDefault(require("./startup/routes"));
@@ -55,6 +55,7 @@ else
 // middlewares
 app.use(express_1.default.json());
 app.use(errors_1.envValidatorMiddleware);
+app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)({
     origin: origin,
     credentials: true,
@@ -62,7 +63,6 @@ app.use((0, cors_1.default)({
     exposedHeaders: ["authToken"],
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
 }));
-app.use((0, cookie_parser_1.default)());
 // startup
 (0, db_1.dbConnect)();
 (0, routes_1.default)(app);
