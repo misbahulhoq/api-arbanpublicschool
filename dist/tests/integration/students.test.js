@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
-const __1 = __importDefault(require("../.."));
+const __1 = require("../..");
 const student_1 = require("../../models/student");
 const user_1 = require("../../models/user");
 // @ts-ignore
@@ -21,7 +21,7 @@ let server;
 describe("/students", () => {
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
         // @ts-ignore
-        server = __1.default;
+        server = __1.server;
     }));
     afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
         server.close();
