@@ -13,6 +13,9 @@ const requiredEnv = [
   "dbPass",
   "email_address",
   "email_pass",
+  "info_email",
+  "contact_email",
+  "contact_email_app_pass",
 ];
 
 const logger = createLogger({
@@ -20,6 +23,7 @@ const logger = createLogger({
   format: combine(timestamp(), json()),
   transports: [
     new winston.transports.File({ filename: "errors.log", level: "error" }),
+    new winston.transports.Console(),
   ],
 });
 

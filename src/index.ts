@@ -3,6 +3,7 @@ import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
 import dotenv from "dotenv";
+dotenv.config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import globalErrorHandler, {
@@ -30,7 +31,6 @@ app.use(
   })
 );
 app.use(cookieParser());
-dotenv.config();
 
 // startup
 dbConnect();
