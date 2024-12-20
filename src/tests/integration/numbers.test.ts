@@ -1,5 +1,5 @@
 import request from "supertest";
-import svr from "../..";
+import { server as svr } from "../..";
 import { Server, IncomingMessage, ServerResponse } from "http";
 import { Num } from "../../models/number";
 import { User } from "../../models/user";
