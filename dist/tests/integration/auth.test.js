@@ -14,14 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const user_1 = require("../../models/user");
-const __1 = __importDefault(require("../.."));
+const __1 = require("../..");
 const student_1 = require("../../models/student");
 // @ts-ignore
 let server;
 describe("auth/signup", () => {
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
         // @ts-ignore
-        server = __1.default;
+        server = __1.server;
     }));
     afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
         server.close();
