@@ -31,23 +31,35 @@ contactRouter.post("/", async (req: Request, res: Response) => {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 10px; border: 1px solid #eeeeee; font-weight: bold; background-color: #f9f9f9;">Name:</td>
-                  <td style="padding: 10px; border: 1px solid #eeeeee;">${req.body.name}</td>
+                  <td style="padding: 10px; border: 1px solid #eeeeee;">${
+                    req.body.name
+                  }</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px; border: 1px solid #eeeeee; font-weight: bold; background-color: #f9f9f9;">Phone:</td>
-                  <td style="padding: 10px; border: 1px solid #eeeeee;">${req.body.phone}</td>
+                  <td style="padding: 10px; border: 1px solid #eeeeee;">${
+                    req.body.phone
+                  }</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px; border: 1px solid #eeeeee; font-weight: bold; background-color: #f9f9f9;">Message:</td>
-                  <td style="padding: 10px; border: 1px solid #eeeeee;">${req.body.message}</td>
+                  <td style="padding: 10px; border: 1px solid #eeeeee;">${
+                    req.body.message
+                  }</td>
                 </tr>
               </table>
               <p style="margin: 20px 0 0; font-size: 14px; color: #666666;">If you have any questions, feel free to contact us.</p>
+              <p style="margin: 10px 0 0; font-size: 14px; color: #666666;">
+                Email: <a href="mailto:contact.arbanpublicschool@gmail.com" style="color: #4caf50; text-decoration: none;">contact.arbanpublicschool@gmail.com</a>
+                </p>
+              <p style="margin: 5px 0 0; font-size: 14px; color: #666666;">
+               Phone: <a href="tel:+8801674044993" style="color: #4caf50; text-decoration: none;">+8801674044993</a>
+              </p>
             </td>
           </tr>
           <tr>
             <td style="background-color: #4caf50; color: #ffffff; text-align: center; padding: 10px; font-size: 14px;">
-              &copy; 2024 Your Company. All rights reserved.
+              &copy; ${new Date().getFullYear()} Arban Public School. All rights reserved.
             </td>
           </tr>
         </table>
