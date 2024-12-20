@@ -1,5 +1,6 @@
 import express from "express";
 import Issue, { validateIssue } from "../models/issue";
+import { verifyTeacher, verifyUser } from "../middlewares/auth";
 const issuesRouter = express.Router();
 
 issuesRouter.post("/", async (req, res) => {
@@ -12,4 +13,9 @@ issuesRouter.post("/", async (req, res) => {
   const response = await issue.save();
   res.send(response);
 });
+issuesRouter.get("/", verifyUser, verifyTeacher, async (req, res) => {
+  const issues = await Issue.find();
+  res.send(issues);
+});
+
 export default issuesRouter;
