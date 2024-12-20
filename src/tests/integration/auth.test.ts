@@ -1,6 +1,6 @@
 import request from "supertest";
 import { User } from "../../models/user";
-import svr from "../..";
+import { server as svr } from "../..";
 import { Server, IncomingMessage, ServerResponse } from "http";
 import { Student } from "../../models/student";
 // @ts-ignore
