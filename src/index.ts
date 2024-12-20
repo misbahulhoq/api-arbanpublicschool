@@ -58,11 +58,11 @@ let server = app.listen(port, () => {
 });
 
 // Create a serverless function handler
-const serverlessHandler = (req: any, res: any) => {
-  app(req as any, res as any); // Pass requests to Express app
-};
+// const serverlessHandler = (req: any, res: any) => {
+//   app(req as any, res as any); // Pass requests to Express app
+// };
 
-export default serverlessHandler;
+// export default serverlessHandler;
 
 // export default app;
 
