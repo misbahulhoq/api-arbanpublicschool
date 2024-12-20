@@ -1,6 +1,13 @@
 # Docs
 
-## Tools docs
+## Deployment
+
+### Before deploying to vercel the following rules must be followed.
+
+- run `npm run build` or `pnpm build` locally to create a build version.
+- Then push it to github, the rest is up to vercel.
+
+## Tools
 
 ## Typescript along with node.js and express
 
