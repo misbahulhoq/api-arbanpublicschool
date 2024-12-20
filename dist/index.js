@@ -85,3 +85,8 @@ let server = app.listen(port, () => {
     console.log("server is running at http://localhost:" + port);
 });
 exports.server = server;
+// Create a serverless function handler
+const serverlessHandler = (req, res) => {
+    app(req, res); // Pass requests to Express app
+};
+exports.default = serverlessHandler;
