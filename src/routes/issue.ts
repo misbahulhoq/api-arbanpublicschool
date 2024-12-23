@@ -27,5 +27,25 @@ issuesRouter.delete("/:id", verifyUser, verifyAdmin, async (req, res) => {
   const deleted = await Issue.deleteOne({ _id: req.params.id });
   res.send(deleted);
 });
+issuesRouter.put(
+  "/:id",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req, res) => {
+    const foundIssue = await Issue.findOne({ _id: req.params.id });
+
+    if (!foundIssue)
+      return res
+        .status(404)
+        .send({ message: "No issue found with the given id" });
+
+    const updatedIssue = await Issue.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body
+    );
+    res.send(updatedIssue);
+  }
+);
 
 export default issuesRouter;

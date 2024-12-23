@@ -72,4 +72,13 @@ issuesRouter.delete("/:id", auth_1.verifyUser, auth_1.verifyAdmin, (req, res) =>
     const deleted = yield issue_1.default.deleteOne({ _id: req.params.id });
     res.send(deleted);
 }));
+issuesRouter.put("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const foundIssue = yield issue_1.default.findOne({ _id: req.params.id });
+    if (!foundIssue)
+        return res
+            .status(404)
+            .send({ message: "No issue found with the given id" });
+    const updatedIssue = yield issue_1.default.findOneAndUpdate({ _id: req.params.id }, req.body);
+    res.send(updatedIssue);
+}));
 exports.default = issuesRouter;

@@ -2,10 +2,12 @@
 
 ## Deployment
 
-### Before deploying to vercel the following rules must be followed.
+### Before deploying to vercel, the following rules must be followed.
 
 - run `npm run build` or `pnpm build` locally to create a build version.
-- Then push it to github, the rest is up to vercel.
+- Then push it to github, the rest will be handeled by vercel.
+
+## Error Handling
 
 ## Tools
 
