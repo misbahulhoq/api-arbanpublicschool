@@ -6,7 +6,7 @@ interface IUser {
   uid?: string;
   email: string;
   phone: string;
-  password: string;
+  password?: string;
   role: string;
   isAdmin?: boolean;
 }
@@ -73,7 +73,7 @@ type User = {
   uid: string;
   email: string;
   phone: string;
-  password: string;
+  password?: string;
   role: string;
   isAdmin?: boolean;
 };

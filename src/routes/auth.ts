@@ -32,7 +32,7 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
     phone: req.body.phone,
   });
   if (!validStudent)
-    return res.status(400).send({ message: "You provided something wrong." });
+    return res.status(400).send("You provided something wrong.");
 
   let userExists = await User.findOne({ uid: req.body.uid });
   if (userExists)
