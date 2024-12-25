@@ -13,7 +13,7 @@ describe("/students", () => {
     server = svr;
   });
   afterEach(async () => {
-    server.close();
+    await server.close();
     await Student.deleteMany({});
   });
   describe("/POST", () => {
