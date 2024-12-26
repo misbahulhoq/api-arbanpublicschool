@@ -15,7 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const auth_1 = require("../middlewares/auth");
 const user_1 = require("../models/user");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const usersRouter = express_1.default.Router();
+function hashPass(pass) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const saltRounds = 10;
+        try {
+            const hashed = yield bcrypt_1.default.hash(pass, saltRounds);
+            return hashed;
+        }
+        catch (ex) {
+            throw new Error("Error in hashing password " + ex.message);
+        }
+    });
+}
 usersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = (0, user_1.validateUser)(req.body);
     if (error)
@@ -23,7 +36,9 @@ usersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmi
     const foundUser = yield user_1.User.findOne({ uid: req.body.uid });
     if (foundUser)
         return res.status(400).send("User Id already taken");
-    const newUser = yield new user_1.User(req.body).save();
+    const newUser = new user_1.User(req.body);
+    newUser.password = yield hashPass(req.body.password);
+    yield newUser.save();
     const userObject = newUser.toJSON();
     delete userObject.password;
     res.send(userObject);
