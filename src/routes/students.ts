@@ -27,6 +27,8 @@ studentsRouter.get(
   verifyTeacher,
   async (req: Request, res: Response, next) => {
     const validClasses = [
+      "-1",
+      "0",
       "1",
       "2",
       "3",
@@ -42,7 +44,7 @@ studentsRouter.get(
     if (!validClasses.includes(req.query?.class as string)) {
       return res
         .status(400)
-        .send("The class is not valid.. Class must be between 1 and 10.");
+        .send("The class is not valid.. Class must be between -1 and 10.");
     }
     const query = { class: req.query?.class };
 

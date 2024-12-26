@@ -20,11 +20,11 @@ const numbersRouter = express_1.default.Router();
 numbersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = (0, number_1.validateNumber)(req.body);
     if (error)
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send({ message: error.details[0].message });
     // if the client sends a uid which does not exist return 400
     const foundStudent = yield student_1.Student.findOne({ uid: req.body.uid });
     if (!foundStudent) {
-        return res.status(400).send("Wrong UID.");
+        return res.status(400).send({ message: "Wrong UID." });
     }
     // if a student's number is already saved with a uid and exam code, return 400.
     const numberAlreadySaved = yield number_1.Num.findOne({
@@ -34,7 +34,7 @@ numbersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => _
     if (numberAlreadySaved) {
         return res
             .status(400)
-            .send("Number already saved with this uid and examCode");
+            .send({ message: "Number already saved with this uid and examCode" });
     }
     const number = new number_1.Num(req.body);
     yield number.save();

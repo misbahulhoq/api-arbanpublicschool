@@ -11,12 +11,13 @@ numbersRouter.post(
   verifyTeacher,
   async (req: Request, res: Response) => {
     const { error } = validateNumber(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error)
+      return res.status(400).send({ message: error.details[0].message });
 
     // if the client sends a uid which does not exist return 400
     const foundStudent = await Student.findOne({ uid: req.body.uid });
     if (!foundStudent) {
-      return res.status(400).send("Wrong UID.");
+      return res.status(400).send({ message: "Wrong UID." });
     }
 
     // if a student's number is already saved with a uid and exam code, return 400.
@@ -27,7 +28,7 @@ numbersRouter.post(
     if (numberAlreadySaved) {
       return res
         .status(400)
-        .send("Number already saved with this uid and examCode");
+        .send({ message: "Number already saved with this uid and examCode" });
     }
 
     const number = new Num(req.body);
