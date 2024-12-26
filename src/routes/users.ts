@@ -1,8 +1,17 @@
 import e from "express";
 import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { User, validateUser } from "../models/user";
+import bcrypt from "bcrypt";
 const usersRouter = e.Router();
-
+async function hashPass(pass: string) {
+  const saltRounds = 10;
+  try {
+    const hashed = await bcrypt.hash(pass, saltRounds);
+    return hashed;
+  } catch (ex: any) {
+    throw new Error("Error in hashing password " + ex.message);
+  }
+}
 usersRouter.post(
   "/",
   verifyUser,
@@ -13,7 +22,9 @@ usersRouter.post(
     if (error) return res.status(400).send(error.details[0].message);
     const foundUser = await User.findOne({ uid: req.body.uid });
     if (foundUser) return res.status(400).send("User Id already taken");
-    const newUser = await new User(req.body).save();
+    const newUser = new User(req.body);
+    newUser.password = await hashPass(req.body.password);
+    await newUser.save();
     const userObject = newUser.toJSON();
     delete userObject.password;
     res.send(userObject);
