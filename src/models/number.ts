@@ -3,9 +3,17 @@ import { model, Schema } from "mongoose";
 
 type NumberType = {
   uid: string;
+  class: string;
   exam: string;
+  examYear: string;
+  fullMarks: number;
   examCode: string;
-  numbers: { sub: string; fullMarks: number; obtMarks: number }[];
+  subjects: {
+    name: string;
+    fullMarks: number;
+    obtMarks: number;
+    slug: string;
+  }[];
 };
 
 const numberSchema = new Schema({
@@ -21,11 +29,12 @@ const numberSchema = new Schema({
     type: String,
     required: true,
   },
-  numbers: [
+  subjects: [
     {
-      sub: { type: String, required: true },
+      name: { type: String, required: true },
       fullMarks: { type: Number, required: true },
       obtMarks: { type: Number, required: true },
+      slug: { type: String, required: true },
     },
   ],
 });
@@ -35,9 +44,12 @@ const Num = model("number", numberSchema);
 const validateNumber = (number: NumberType) => {
   const schema = Joi.object({
     uid: Joi.string().required().min(6).max(6),
+    class: Joi.string().required(),
+    examYear: Joi.string().required(),
+    fullMarks: Joi.number().optional(),
     exam: Joi.string().required(),
     examCode: Joi.string().required().min(4).max(4),
-    numbers: Joi.array().required(),
+    subjects: Joi.array().required(),
   });
   return schema.validate(number);
 };

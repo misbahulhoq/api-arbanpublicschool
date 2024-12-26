@@ -19,11 +19,12 @@ const numberSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    numbers: [
+    subjects: [
         {
-            sub: { type: String, required: true },
+            name: { type: String, required: true },
             fullMarks: { type: Number, required: true },
             obtMarks: { type: Number, required: true },
+            slug: { type: String, required: true },
         },
     ],
 });
@@ -32,9 +33,12 @@ exports.Num = Num;
 const validateNumber = (number) => {
     const schema = joi_1.default.object({
         uid: joi_1.default.string().required().min(6).max(6),
+        class: joi_1.default.string().required(),
+        examYear: joi_1.default.string().required(),
+        fullMarks: joi_1.default.number().optional(),
         exam: joi_1.default.string().required(),
         examCode: joi_1.default.string().required().min(4).max(4),
-        numbers: joi_1.default.array().required(),
+        subjects: joi_1.default.array().required(),
     });
     return schema.validate(number);
 };

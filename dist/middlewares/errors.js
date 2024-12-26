@@ -71,7 +71,7 @@ const globalErrorHandler = (err, req, res, next) => {
     emailTransport_1.contactEmailTransporter.sendMail({
         from: process.env.contact_email,
         to: ["extraordinarymisbah@gmail.com"],
-        subject: "An error happened in the server of Arban Public School Api",
+        subject: "An error happened in Arban Public School Api",
         html: `
     <body style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
 
@@ -87,7 +87,7 @@ const globalErrorHandler = (err, req, res, next) => {
     ">
         <h1 style="color: #e74c3c; font-size: 24px; margin: 0 0 10px;">⚠ Error Occurred</h1>
         <p style="color: #333; font-size: 16px; line-height: 1.5; margin: 0 0 20px;">
-            ${err.message}
+            ${err}
         </p>
     </div>
 

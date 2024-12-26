@@ -30,6 +30,8 @@ studentsRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => 
 studentsRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const validClasses = [
+        "-1",
+        "0",
         "1",
         "2",
         "3",
@@ -45,7 +47,7 @@ studentsRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res, next
     if (!validClasses.includes((_a = req.query) === null || _a === void 0 ? void 0 : _a.class)) {
         return res
             .status(400)
-            .send("The class is not valid.. Class must be between 1 and 10.");
+            .send("The class is not valid.. Class must be between -1 and 10.");
     }
     const query = { class: (_b = req.query) === null || _b === void 0 ? void 0 : _b.class };
     const students = yield student_1.Student.find(req.query.class !== "all" ? query : {});
