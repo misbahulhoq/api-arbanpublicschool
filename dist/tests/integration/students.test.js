@@ -24,7 +24,7 @@ describe("/students", () => {
         server = __1.server;
     }));
     afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        server.close();
+        yield server.close();
         yield student_1.Student.deleteMany({});
     }));
     describe("/POST", () => {
@@ -138,13 +138,13 @@ describe("/students", () => {
             const response = yield execute();
             expect(response.status).toBe(400);
         }));
-        it("should return 400 if email is less than 12 characters", () => __awaiter(void 0, void 0, void 0, function* () {
+        it("should return 400 if email is less than 10 characters", () => __awaiter(void 0, void 0, void 0, function* () {
             email = "abc";
             const response = yield execute();
             expect(response.status).toBe(400);
         }));
-        it("should return 400 if email is greater than 20 characters", () => __awaiter(void 0, void 0, void 0, function* () {
-            email = "0123456789145454545454545454";
+        it("should return 400 if email is greater than 30 characters", () => __awaiter(void 0, void 0, void 0, function* () {
+            email = "0123456789145454545454545454somemoretextwillgohere";
             const response = yield execute();
             expect(response.status).toBe(400);
         }));

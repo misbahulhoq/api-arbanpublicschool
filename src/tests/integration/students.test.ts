@@ -13,7 +13,7 @@ describe("/students", () => {
     server = svr;
   });
   afterEach(async () => {
-    server.close();
+    await server.close();
     await Student.deleteMany({});
   });
   describe("/POST", () => {
@@ -135,13 +135,13 @@ describe("/students", () => {
       const response = await execute();
       expect(response.status).toBe(400);
     });
-    it("should return 400 if email is less than 12 characters", async () => {
+    it("should return 400 if email is less than 10 characters", async () => {
       email = "abc";
       const response = await execute();
       expect(response.status).toBe(400);
     });
-    it("should return 400 if email is greater than 20 characters", async () => {
-      email = "0123456789145454545454545454";
+    it("should return 400 if email is greater than 30 characters", async () => {
+      email = "0123456789145454545454545454somemoretextwillgohere";
       const response = await execute();
       expect(response.status).toBe(400);
     });

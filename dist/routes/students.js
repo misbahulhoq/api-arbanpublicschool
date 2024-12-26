@@ -22,7 +22,7 @@ studentsRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => 
         return res.status(400).send(error.details[0].message);
     const studentExists = yield student_1.Student.findOne({ uid: req.body.uid });
     if (studentExists)
-        return res.status(400).send("Student already exists");
+        return res.status(400).send({ message: "Student already exists" });
     const student = new student_1.Student(req.body);
     yield student.save();
     res.send(student);

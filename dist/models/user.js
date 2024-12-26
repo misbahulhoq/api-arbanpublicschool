@@ -93,7 +93,7 @@ function validateUser(user) {
         phone: joi_1.default.string().min(11).max(15).required(),
         password: joi_1.default.string().min(6).required(),
         role: joi_1.default.string().min(6).max(20).required(),
-        isAdmin: joi_1.default.boolean(),
+        isAdmin: joi_1.default.boolean().optional(),
     });
     return schema.validate(user);
 }

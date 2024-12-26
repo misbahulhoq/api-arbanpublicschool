@@ -6,7 +6,7 @@ interface IUser {
   uid?: string;
   email: string;
   phone: string;
-  password: string;
+  password?: string;
   role: string;
   isAdmin?: boolean;
 }
@@ -73,7 +73,7 @@ type User = {
   uid: string;
   email: string;
   phone: string;
-  password: string;
+  password?: string;
   role: string;
   isAdmin?: boolean;
 };
@@ -85,7 +85,7 @@ function validateUser(user: User) {
     phone: Joi.string().min(11).max(15).required(),
     password: Joi.string().min(6).required(),
     role: Joi.string().min(6).max(20).required(),
-    isAdmin: Joi.boolean(),
+    isAdmin: Joi.boolean().optional(),
   });
 
   return schema.validate(user);

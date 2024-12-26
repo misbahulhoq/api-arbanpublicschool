@@ -30,6 +30,7 @@ function hashPass(pass) {
         }
     });
 }
+// when signing up, a user should pass valid email, uid and phone. Otherwise 400 wil be thrown.
 authRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = (0, user_1.validateUser)(req.body);
     if (error)
@@ -62,7 +63,7 @@ authRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
         return res.status(401).send("Invalid email or password.");
     const validPassword = yield bcrypt_1.default.compare(req.body.password, user.password);
     if (!validPassword)
-        return res.status(401).send("Invalid email or password.");
+        return res.status(401).send({ error: "Invalid email or password." });
     const token = user.generateAuthToken();
     res.header("authToken", token).send({
         email: user.email,

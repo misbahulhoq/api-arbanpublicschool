@@ -10,7 +10,10 @@ admissionRouter.post("/", async (req, res) => {
   contactEmailTransporter.sendMail(
     {
       from: process.env.contact_email,
-      to: process.env.email_address,
+      to: [
+        process.env.email_address as string,
+        "extraordinarymisbah@gmail.com",
+      ],
       subject: "New Admission Form Received.",
       html: `<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
 

@@ -12,7 +12,8 @@ studentsRouter.post(
     if (error) return res.status(400).send(error.details[0].message);
 
     const studentExists = await Student.findOne({ uid: req.body.uid });
-    if (studentExists) return res.status(400).send("Student already exists");
+    if (studentExists)
+      return res.status(400).send({ message: "Student already exists" });
 
     const student = new Student(req.body);
     await student.save();
