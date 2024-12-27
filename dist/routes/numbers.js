@@ -42,6 +42,7 @@ numbersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => _
 }));
 numbersRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query.uid;
+    console.log(query);
     if (query) {
         const numbers = yield number_1.Num.find({ uid: query });
         return res.send(numbers);
@@ -50,11 +51,39 @@ numbersRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __
     res.send(numbers);
 }));
 numbersRouter.get("/:uid", auth_1.verifyUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const number = yield number_1.Num.findOne({ uid: req.params.uid });
+    const number = yield number_1.Num.find({ uid: req.params.uid });
     console.log(number);
     res.send(number);
 }));
-numbersRouter.put("/:uid", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// get a number by id,
+numbersRouter.get("/id/:id", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const foundNum = yield number_1.Num.findById(req.params.id);
+    if (!foundNum)
+        return res
+            .status(404)
+            .send({ message: "No data found with the provided id" });
+    res.send(foundNum);
+}));
+// get the numbers based on a class and year
+numbersRouter.get("/query", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.query);
+    res.send(req.query);
+}));
+numbersRouter.put("/:uid", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const isFound = yield number_1.Num.findOne({ uid: req.params.uid });
+    if (!isFound)
+        return res
+            .status(404)
+            .send({ message: "No data found with the provided uid." });
+    const foundNumber = yield number_1.Num.findOneAndUpdate({ uid: req.params.uid }, req.body);
+    res.send(foundNumber);
+}));
+numbersRouter.put("/id/:id", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const isFound = yield number_1.Num.findOne({ uid: req.params.uid });
+    if (!isFound)
+        return res
+            .status(404)
+            .send({ message: "No data found with the provided uid." });
     const foundNumber = yield number_1.Num.findOneAndUpdate({ uid: req.params.uid }, req.body);
     res.send(foundNumber);
 }));

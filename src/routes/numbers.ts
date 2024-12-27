@@ -43,6 +43,7 @@ numbersRouter.get(
   verifyTeacher,
   async (req: Request, res: Response) => {
     const query = req.query.uid;
+    console.log(query);
     if (query) {
       const numbers = await Num.find({ uid: query });
       return res.send(numbers);
@@ -53,22 +54,61 @@ numbersRouter.get(
 );
 
 numbersRouter.get("/:uid", verifyUser, async (req: Request, res: Response) => {
-  const number = await Num.findOne({ uid: req.params.uid });
+  const number = await Num.find({ uid: req.params.uid });
   console.log(number);
   res.send(number);
+});
+
+// get a number by id,
+numbersRouter.get("/id/:id", verifyUser, verifyTeacher, async (req, res) => {
+  const foundNum = await Num.findById(req.params.id);
+  if (!foundNum)
+    return res
+      .status(404)
+      .send({ message: "No data found with the provided id" });
+  res.send(foundNum);
+});
+
+// get the numbers based on a class and year
+numbersRouter.get("/query", async (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
 });
 
 numbersRouter.put(
   "/:uid",
   verifyUser,
   verifyTeacher,
-  verifyAdmin,
   async (req: Request, res: Response) => {
+    const isFound = await Num.findOne({ uid: req.params.uid });
+    if (!isFound)
+      return res
+        .status(404)
+        .send({ message: "No data found with the provided uid." });
+
     const foundNumber = await Num.findOneAndUpdate(
       { uid: req.params.uid },
       req.body
     );
+    res.send(foundNumber);
+  }
+);
 
+numbersRouter.put(
+  "/id/:id",
+  verifyUser,
+  verifyTeacher,
+  async (req: Request, res: Response) => {
+    const isFound = await Num.findOne({ uid: req.params.uid });
+    if (!isFound)
+      return res
+        .status(404)
+        .send({ message: "No data found with the provided uid." });
+
+    const foundNumber = await Num.findOneAndUpdate(
+      { uid: req.params.uid },
+      req.body
+    );
     res.send(foundNumber);
   }
 );
