@@ -43,7 +43,6 @@ numbersRouter.get(
   verifyTeacher,
   async (req: Request, res: Response) => {
     const query = req.query;
-    console.log(req.query);
     if (query) {
       const numbers = await Num.find(query);
       return res.send(numbers);
