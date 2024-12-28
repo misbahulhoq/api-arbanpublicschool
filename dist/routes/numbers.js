@@ -41,10 +41,10 @@ numbersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => _
     res.send(number);
 }));
 numbersRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const query = req.query.uid;
-    console.log(query);
+    const query = req.query;
+    console.log(req.query);
     if (query) {
-        const numbers = yield number_1.Num.find({ uid: query });
+        const numbers = yield number_1.Num.find(query);
         return res.send(numbers);
     }
     const numbers = yield number_1.Num.find();
@@ -63,11 +63,6 @@ numbersRouter.get("/id/:id", auth_1.verifyUser, auth_1.verifyTeacher, (req, res)
             .status(404)
             .send({ message: "No data found with the provided id" });
     res.send(foundNum);
-}));
-// get the numbers based on a class and year
-numbersRouter.get("/query", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.query);
-    res.send(req.query);
 }));
 numbersRouter.put("/:uid", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const isFound = yield number_1.Num.findOne({ uid: req.params.uid });

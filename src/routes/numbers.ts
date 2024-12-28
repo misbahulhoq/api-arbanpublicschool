@@ -42,10 +42,10 @@ numbersRouter.get(
   verifyUser,
   verifyTeacher,
   async (req: Request, res: Response) => {
-    const query = req.query.uid;
-    console.log(query);
+    const query = req.query;
+    console.log(req.query);
     if (query) {
-      const numbers = await Num.find({ uid: query });
+      const numbers = await Num.find(query);
       return res.send(numbers);
     }
     const numbers = await Num.find();
@@ -67,12 +67,6 @@ numbersRouter.get("/id/:id", verifyUser, verifyTeacher, async (req, res) => {
       .status(404)
       .send({ message: "No data found with the provided id" });
   res.send(foundNum);
-});
-
-// get the numbers based on a class and year
-numbersRouter.get("/query", async (req, res) => {
-  console.log(req.query);
-  res.send(req.query);
 });
 
 numbersRouter.put(

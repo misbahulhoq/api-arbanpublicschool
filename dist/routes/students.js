@@ -53,7 +53,7 @@ studentsRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res, next
     const students = yield student_1.Student.find(req.query.class !== "all" ? query : {});
     res.send(students);
 }));
-studentsRouter.get("/:uid", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+studentsRouter.get("/:uid", auth_1.verifyUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const student = yield student_1.Student.findOne({ uid: req.params.uid });
     if (!student)
         return res.status(404).send("No student found with the given uid.");
