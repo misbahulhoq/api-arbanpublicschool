@@ -53,7 +53,7 @@ studentsRouter.get(
   }
 );
 
-studentsRouter.get("/:uid", async (req: Request, res: Response) => {
+studentsRouter.get("/:uid", verifyUser, async (req: Request, res: Response) => {
   const student = await Student.findOne({ uid: req.params.uid });
   if (!student)
     return res.status(404).send("No student found with the given uid.");

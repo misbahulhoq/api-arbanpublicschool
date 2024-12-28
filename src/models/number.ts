@@ -21,11 +21,19 @@ const numberSchema = new Schema({
     type: String,
     required: true,
   },
+  class: {
+    type: String,
+    required: true,
+  },
   exam: {
     type: String,
     required: true,
   },
   examCode: {
+    type: String,
+    required: true,
+  },
+  examYear: {
     type: String,
     required: true,
   },
