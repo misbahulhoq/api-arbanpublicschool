@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { Num, validateNumber } from "../models/number";
 import { Student } from "../models/student";
+import { number } from "joi";
 
 const numbersRouter = express.Router();
 
@@ -54,7 +55,6 @@ numbersRouter.get(
 
 numbersRouter.get("/:uid", verifyUser, async (req: Request, res: Response) => {
   const number = await Num.find({ uid: req.params.uid });
-  console.log(number);
   res.send(number);
 });
 
@@ -103,6 +103,21 @@ numbersRouter.put(
       req.body
     );
     res.send(foundNumber);
+  }
+);
+
+numbersRouter.delete(
+  "/",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req, res) => {
+    const foundedNumer = await Num.findOne(req.query);
+    if (!foundedNumer)
+      return res
+        .status(404)
+        .send({ message: "No number found with the provided data" });
+    res.send(await Num.deleteOne(req.query));
   }
 );
 

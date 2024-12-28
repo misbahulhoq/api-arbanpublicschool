@@ -51,7 +51,6 @@ numbersRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __
 }));
 numbersRouter.get("/:uid", auth_1.verifyUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const number = yield number_1.Num.find({ uid: req.params.uid });
-    console.log(number);
     res.send(number);
 }));
 // get a number by id,
@@ -80,5 +79,13 @@ numbersRouter.put("/id/:id", auth_1.verifyUser, auth_1.verifyTeacher, (req, res)
             .send({ message: "No data found with the provided uid." });
     const foundNumber = yield number_1.Num.findOneAndUpdate({ uid: req.params.uid }, req.body);
     res.send(foundNumber);
+}));
+numbersRouter.delete("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const foundedNumer = yield number_1.Num.findOne(req.query);
+    if (!foundedNumer)
+        return res
+            .status(404)
+            .send({ message: "No number found with the provided data" });
+    res.send(yield number_1.Num.deleteOne(req.query));
 }));
 exports.default = numbersRouter;
