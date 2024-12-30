@@ -6,7 +6,8 @@ const admissionRouter = express.Router();
 
 admissionRouter.post("/", async (req, res) => {
   const { error } = admissionFormValidator(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ message: error.details[0].message });
+
   contactEmailTransporter.sendMail(
     {
       from: process.env.contact_email,
@@ -113,7 +114,7 @@ admissionRouter.post("/", async (req, res) => {
     },
     (err, info) => {
       if (err) {
-        return res.status(500).send("Something went wrong.");
+        return res.status(500).send({ mesage: "Something went wrong." });
       } else {
         res.send(info);
       }
