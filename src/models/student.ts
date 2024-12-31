@@ -53,7 +53,7 @@ function validateStudent(student: StudentType) {
     uid: Joi.string().min(6).max(6).required(),
     class: Joi.string().min(1).max(2).required(),
     phone: Joi.string().min(11).max(20).required(),
-    email: Joi.string().min(10).max(30).required(),
+    email: Joi.string().min(8).required(),
     fathersName: Joi.string().min(3).required(),
     mothersName: Joi.string().min(3).required(),
   });

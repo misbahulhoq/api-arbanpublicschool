@@ -9,7 +9,8 @@ studentsRouter.post(
   verifyTeacher,
   async (req: Request, res: Response) => {
     const { error } = validateStudent(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error)
+      return res.status(400).send({ message: error.details[0].message });
 
     const studentExists = await Student.findOne({ uid: req.body.uid });
     if (studentExists)
