@@ -23,6 +23,10 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
+  year: {
+    type: Number,
+    default: new Date().getFullYear(),
+  },
   phone: {
     type: String,
     required: true,
