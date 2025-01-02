@@ -27,7 +27,7 @@ const infoEmailTransporter = nodemailer_1.default.createTransport({
     service: "gmail",
     auth: {
         user: process.env.info_email,
-        pass: process.env.info_email_pass,
+        pass: process.env.info_email_app_pass,
     },
 });
 exports.infoEmailTransporter = infoEmailTransporter;

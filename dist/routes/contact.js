@@ -19,7 +19,7 @@ const contactRouter = express_1.default.Router();
 contactRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = validateContactFormData(req.body);
     if (error)
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send({ message: error.details[0].message });
     emailTransport_1.contactEmailTransporter.sendMail({
         from: process.env.contact_email,
         to: process.env.email_address,

@@ -50,8 +50,8 @@ NoticeSchema.set("toObject", { getters: true });
 
 export function validateNotice(data: INotice) {
   const schema = Joi.object({
-    title: Joi.string().required().min(10),
-    description: Joi.string().required().min(25),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
     resourceUrl: Joi.string().optional().allow(""),
   });
   return schema.validate(data);

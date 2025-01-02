@@ -20,6 +20,10 @@ const studentSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    year: {
+        type: Number,
+        default: new Date().getFullYear(),
+    },
     phone: {
         type: String,
         required: true,
@@ -45,7 +49,7 @@ function validateStudent(student) {
         uid: joi_1.default.string().min(6).max(6).required(),
         class: joi_1.default.string().min(1).max(2).required(),
         phone: joi_1.default.string().min(11).max(20).required(),
-        email: joi_1.default.string().min(10).max(30).required(),
+        email: joi_1.default.string().min(8).required(),
         fathersName: joi_1.default.string().min(3).required(),
         mothersName: joi_1.default.string().min(3).required(),
     });
