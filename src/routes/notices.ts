@@ -120,6 +120,35 @@ noticesRouter.get("/", async (req, res) => {
   res.send(notices);
 });
 
+noticesRouter.get("/:id", async (req, res) => {
+  const notice = await Notice.findById(req.params.id);
+  res.send(notice);
+});
+
+noticesRouter.get("/status/active", async (req, res) => {
+  const activeNotices = await Notice.find({ isActive: true });
+  res.send(activeNotices);
+});
+
+noticesRouter.put(
+  "/:id",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req, res) => {
+    console.log(req.params.id);
+    const foundNotice = await Notice.findById(req.params.id);
+
+    if (!foundNotice)
+      return res.status(404).send({ message: "Notice not found" });
+    console.log(req.body);
+    const updated = await Notice.findByIdAndUpdate(req.params.id, req.body, {
+      returnDocument: "after",
+    });
+    res.send(updated);
+  }
+);
+
 noticesRouter.delete(
   "/:id",
   verifyUser,
