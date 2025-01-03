@@ -116,25 +116,24 @@ noticesRouter.post(
 );
 
 noticesRouter.get("/", async (req, res) => {
-  let studentsEmail = await Student.aggregate([
-    {
-      $group: {
-        _id: "$email", // Group by the email key
-        name: { $first: "$name" },
-      },
-    },
-    {
-      $project: {
-        email: "$_id", // Include the grouped email
-        name: 1, // Include the name
-        _id: 0, // Exclude the default `_id`
-      },
-    },
-  ]);
-  studentsEmail = studentsEmail
-    .filter((student) => !student.email.includes("@arban.com"))
-    .filter((student) => !student.email.includes("@example."));
-  res.send(studentsEmail);
+  const notices = await Notice.find(req.query);
+  res.send(notices);
 });
+
+noticesRouter.delete(
+  "/:id",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req, res) => {
+    let foundNotice = await Notice.findById(req.params.id);
+    if (!foundNotice)
+      return res
+        .status(404)
+        .send({ message: "No notice found with the given id" });
+    const deleted = await Notice.findByIdAndDelete(req.params.id);
+    res.send(deleted);
+  }
+);
 
 export default noticesRouter;

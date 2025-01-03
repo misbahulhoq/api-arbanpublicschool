@@ -111,24 +111,16 @@ noticesRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAd
     });
 }));
 noticesRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let studentsEmail = yield student_1.Student.aggregate([
-        {
-            $group: {
-                _id: "$email", // Group by the email key
-                name: { $first: "$name" },
-            },
-        },
-        {
-            $project: {
-                email: "$_id", // Include the grouped email
-                name: 1, // Include the name
-                _id: 0, // Exclude the default `_id`
-            },
-        },
-    ]);
-    studentsEmail = studentsEmail
-        .filter((student) => !student.email.includes("@arban.com"))
-        .filter((student) => !student.email.includes("@example."));
-    res.send(studentsEmail);
+    const notices = yield notice_1.Notice.find(req.query);
+    res.send(notices);
+}));
+noticesRouter.delete("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let foundNotice = yield notice_1.Notice.findById(req.params.id);
+    if (!foundNotice)
+        return res
+            .status(404)
+            .send({ message: "No notice found with the given id" });
+    const deleted = yield notice_1.Notice.findByIdAndDelete(req.params.id);
+    res.send(deleted);
 }));
 exports.default = noticesRouter;
