@@ -7,6 +7,7 @@ import admissionRouter from "../routes/admission";
 import issuesRouter from "../routes/issue";
 import usersRouter from "../routes/users";
 import noticesRouter from "../routes/notices";
+import eventsRouter from "../routes/events";
 
 export default function routes(app: Express) {
   app.use("/auth", authRouter);
@@ -17,4 +18,5 @@ export default function routes(app: Express) {
   app.use("/issues", issuesRouter);
   app.use("/users", usersRouter);
   app.use("/notices", noticesRouter);
+  app.use("/events", eventsRouter);
 }
