@@ -32,9 +32,10 @@ noticesRouter.post(
       },
     ]);
 
-    studentsEmail = studentsEmail.filter(
-      (student) => !student.email.includes("@arban.com")
-    );
+    studentsEmail = studentsEmail
+      .filter((student) => !student.email.includes("@arban"))
+      .filter((student) => !student.email.includes("Arban@gmail.com"))
+      .filter((student) => !student.email.includes("@example"));
     const notice = await new Notice(req.body).save();
     res.send(notice);
 

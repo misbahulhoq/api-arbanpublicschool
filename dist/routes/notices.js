@@ -38,7 +38,10 @@ noticesRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAd
             },
         },
     ]);
-    studentsEmail = studentsEmail.filter((student) => !student.email.includes("@arban.com"));
+    studentsEmail = studentsEmail
+        .filter((student) => !student.email.includes("@arban"))
+        .filter((student) => !student.email.includes("Arban@gmail.com"))
+        .filter((student) => !student.email.includes("@example"));
     const notice = yield new notice_1.Notice(req.body).save();
     res.send(notice);
     studentsEmail.map((student) => {
@@ -113,6 +116,25 @@ noticesRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAd
 noticesRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const notices = yield notice_1.Notice.find(req.query);
     res.send(notices);
+}));
+noticesRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const notice = yield notice_1.Notice.findById(req.params.id);
+    res.send(notice);
+}));
+noticesRouter.get("/status/active", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const activeNotices = yield notice_1.Notice.find({ isActive: true });
+    res.send(activeNotices);
+}));
+noticesRouter.put("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.params.id);
+    const foundNotice = yield notice_1.Notice.findById(req.params.id);
+    if (!foundNotice)
+        return res.status(404).send({ message: "Notice not found" });
+    console.log(req.body);
+    const updated = yield notice_1.Notice.findByIdAndUpdate(req.params.id, req.body, {
+        returnDocument: "after",
+    });
+    res.send(updated);
 }));
 noticesRouter.delete("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let foundNotice = yield notice_1.Notice.findById(req.params.id);
