@@ -29,6 +29,22 @@ teachersRouter.post(
   }
 );
 
+teachersRouter.put(
+  "/:id",
+  verifyUser,
+  verifyTeacher,
+  verifyAdmin,
+  async (req, res) => {
+    const foundTeacher = await Teacher.findById(req.params.id);
+    if (!foundTeacher)
+      return res.status(404).send({ message: "No teacher found" });
+    const updated = await Teacher.findByIdAndUpdate(req.params.id, req.body, {
+      returnDocument: "after",
+    });
+    res.send(updated);
+  }
+);
+
 teachersRouter.delete(
   "/:id",
   verifyUser,

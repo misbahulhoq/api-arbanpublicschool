@@ -14,6 +14,9 @@ const teacherSchema = new Schema({
     type: String,
     required: true,
   },
+  about: {
+    type: String,
+  },
   phone: {
     type: String,
     required: true,

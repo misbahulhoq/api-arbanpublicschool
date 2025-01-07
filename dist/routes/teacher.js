@@ -66,6 +66,15 @@ teachersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyA
     const teacher = yield new teacher_1.default(req.body).save();
     res.send(teacher);
 }));
+teachersRouter.put("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const foundTeacher = yield teacher_1.default.findById(req.params.id);
+    if (!foundTeacher)
+        return res.status(404).send({ message: "No teacher found" });
+    const updated = yield teacher_1.default.findByIdAndUpdate(req.params.id, req.body, {
+        returnDocument: "after",
+    });
+    res.send(updated);
+}));
 teachersRouter.delete("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const foundTeacher = yield teacher_1.default.findById(req.params.id);
     if (!foundTeacher)
