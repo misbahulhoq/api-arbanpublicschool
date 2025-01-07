@@ -8,6 +8,15 @@ eventsRouter.post("/", verifyUser, verifyTeacher, async (req, res) => {
   res.send(event);
 });
 
+eventsRouter.put("/:id", verifyUser, verifyTeacher, async (req, res) => {
+  const foundEvent = await Event.findById(req.params.id);
+  if (!foundEvent) return res.status(404).send({ message: "No event found" });
+  const updated = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    returnDocument: "after",
+  });
+  res.send(updated);
+});
+
 eventsRouter.get("/", async (req, res) => {
   const events = await Event.find();
   res.send(events);
