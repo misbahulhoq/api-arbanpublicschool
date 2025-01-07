@@ -49,22 +49,28 @@ const express_1 = __importDefault(require("express"));
 const auth_1 = require("../middlewares/auth");
 const teacher_1 = __importStar(require("../models/teacher"));
 const teachersRouter = express_1.default.Router();
-teachersRouter.get("/", auth_1.verifyUser, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        throw new Error("test error");
-    }
-    catch (ex) {
-        next(ex);
-    }
+teachersRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allTeachers = yield teacher_1.default.find();
     res.send(allTeachers);
+}));
+teachersRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const foundTeacher = yield teacher_1.default.findById(req.params.id);
+    if (!foundTeacher)
+        return res.status(404).send({ mesage: "No  teacher found" });
+    res.send(foundTeacher);
 }));
 teachersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = (0, teacher_1.validateTeacher)(req.body);
     if (error)
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send({ message: error.details[0].message });
     const teacher = yield new teacher_1.default(req.body).save();
     res.send(teacher);
 }));
-teachersRouter.delete("/", auth_1.verifyUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+teachersRouter.delete("/:id", auth_1.verifyUser, auth_1.verifyTeacher, auth_1.verifyAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const foundTeacher = yield teacher_1.default.findById(req.params.id);
+    if (!foundTeacher)
+        return res.status(404).send({ message: "No teacher found." });
+    const deletedTeacher = yield teacher_1.default.findByIdAndDelete(req.params.id);
+    res.send(deletedTeacher);
+}));
 exports.default = teachersRouter;
