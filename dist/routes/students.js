@@ -19,7 +19,7 @@ const studentsRouter = express_1.default.Router();
 studentsRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = (0, student_1.validateStudent)(req.body);
     if (error)
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send({ message: error.details[0].message });
     const studentExists = yield student_1.Student.findOne({ uid: req.body.uid });
     if (studentExists)
         return res.status(400).send({ message: "Student already exists" });

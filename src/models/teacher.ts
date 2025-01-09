@@ -3,7 +3,9 @@ import { model, Schema } from "mongoose";
 
 type TeacherType = {
   name: string;
+  about?: string;
   phone: string;
+  email: string;
   photoUrl: string;
 };
 
@@ -12,7 +14,14 @@ const teacherSchema = new Schema({
     type: String,
     required: true,
   },
+  about: {
+    type: String,
+  },
   phone: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
   },
@@ -28,6 +37,8 @@ function validateTeacher(teacher: TeacherType) {
   const schema = Joi.object({
     name: Joi.string().required().min(5),
     phone: Joi.string().required().min(11),
+    email: Joi.string().required(),
+    about: Joi.string().optional().allow(""),
     photoUrl: Joi.string().required(),
   });
 

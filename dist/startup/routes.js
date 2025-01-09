@@ -11,12 +11,18 @@ const contact_1 = __importDefault(require("../routes/contact"));
 const admission_1 = __importDefault(require("../routes/admission"));
 const issue_1 = __importDefault(require("../routes/issue"));
 const users_1 = __importDefault(require("../routes/users"));
+const notices_1 = __importDefault(require("../routes/notices"));
+const events_1 = __importDefault(require("../routes/events"));
+const teacher_1 = __importDefault(require("../routes/teacher"));
 function routes(app) {
     app.use("/auth", auth_1.default);
     app.use("/students", students_1.default);
+    app.use("/teachers", teacher_1.default);
     app.use("/numbers", numbers_1.default);
     app.use("/contact", contact_1.default);
     app.use("/admissions", admission_1.default);
     app.use("/issues", issue_1.default);
     app.use("/users", users_1.default);
+    app.use("/notices", notices_1.default);
+    app.use("/events", events_1.default);
 }

@@ -11,7 +11,14 @@ const teacherSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    about: {
+        type: String,
+    },
     phone: {
+        type: String,
+        required: true,
+    },
+    email: {
         type: String,
         required: true,
     },
@@ -25,6 +32,8 @@ function validateTeacher(teacher) {
     const schema = joi_1.default.object({
         name: joi_1.default.string().required().min(5),
         phone: joi_1.default.string().required().min(11),
+        email: joi_1.default.string().required(),
+        about: joi_1.default.string().optional().allow(""),
         photoUrl: joi_1.default.string().required(),
     });
     return schema.validate(teacher);
