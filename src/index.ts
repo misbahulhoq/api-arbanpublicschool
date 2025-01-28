@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import helmet from "helmet";
 import "express-async-errors";
 import { dbConnect } from "./startup/db";
 import routes from "./startup/routes";
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV === "development")
 else origin = ["https://arbanpublicschool.vercel.app"];
 
 // middlewares
+app.use(helmet());
 app.use(express.json());
 app.use(envValidatorMiddleware);
 app.use(cookieParser());
