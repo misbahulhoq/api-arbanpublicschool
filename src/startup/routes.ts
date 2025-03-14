@@ -9,6 +9,7 @@ import usersRouter from "../routes/users";
 import noticesRouter from "../routes/notices";
 import eventsRouter from "../routes/events";
 import teachersRouter from "../routes/teacher";
+import appollochatRouter from "../routes/apollochat";
 
 export default function routes(app: Express) {
   app.use("/auth", authRouter);
@@ -21,4 +22,5 @@ export default function routes(app: Express) {
   app.use("/users", usersRouter);
   app.use("/notices", noticesRouter);
   app.use("/events", eventsRouter);
+  app.use("/apollochat", appollochatRouter);
 }

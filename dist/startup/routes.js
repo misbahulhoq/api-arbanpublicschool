@@ -14,6 +14,7 @@ const users_1 = __importDefault(require("../routes/users"));
 const notices_1 = __importDefault(require("../routes/notices"));
 const events_1 = __importDefault(require("../routes/events"));
 const teacher_1 = __importDefault(require("../routes/teacher"));
+const apollochat_1 = __importDefault(require("../routes/apollochat"));
 function routes(app) {
     app.use("/auth", auth_1.default);
     app.use("/students", students_1.default);
@@ -25,4 +26,5 @@ function routes(app) {
     app.use("/users", users_1.default);
     app.use("/notices", notices_1.default);
     app.use("/events", events_1.default);
+    app.use("/apollochat", apollochat_1.default);
 }
