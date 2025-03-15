@@ -15,13 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const auth_1 = require("../middlewares/auth");
 const user_1 = require("../models/user");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const usersRouter = express_1.default.Router();
 function hashPass(pass) {
     return __awaiter(this, void 0, void 0, function* () {
         const saltRounds = 10;
         try {
-            const hashed = yield bcrypt_1.default.hash(pass, saltRounds);
+            const hashed = yield bcryptjs_1.default.hash(pass, saltRounds);
             return hashed;
         }
         catch (ex) {

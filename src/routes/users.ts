@@ -1,7 +1,7 @@
 import e from "express";
 import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { User, validateUser } from "../models/user";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 const usersRouter = e.Router();
 async function hashPass(pass: string) {
   const saltRounds = 10;

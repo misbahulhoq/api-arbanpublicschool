@@ -12,9 +12,9 @@ appollochatRouter.post("/", async (req, res) => {
   const { prompt } = req.body;
   const fullPrompt = `${data}\n\nUser: ${prompt}`;
   try {
-    const result = await apollochat.generateContent(prompt);
+    const result = await apollochat.generateContent(fullPrompt);
     const response = result.response.text();
-    const chat = await new Chat({ fullPrompt, response }).save();
+    const chat = await new Chat({ prompt, response }).save();
     res.send(chat);
   } catch (error) {
     console.error(error);

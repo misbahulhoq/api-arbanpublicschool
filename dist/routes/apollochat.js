@@ -25,9 +25,9 @@ appollochatRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, func
     const { prompt } = req.body;
     const fullPrompt = `${data_1.data}\n\nUser: ${prompt}`;
     try {
-        const result = yield apollochat.generateContent(prompt);
+        const result = yield apollochat.generateContent(fullPrompt);
         const response = result.response.text();
-        const chat = yield new chat_1.default({ fullPrompt, response }).save();
+        const chat = yield new chat_1.default({ prompt, response }).save();
         res.send(chat);
     }
     catch (error) {

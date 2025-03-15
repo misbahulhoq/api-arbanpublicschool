@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { User, validateUser } from "../models/user";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { verifyUser } from "../middlewares/auth";
 import { Student } from "../models/student";
 const authRouter = express.Router();

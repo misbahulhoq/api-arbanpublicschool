@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const user_1 = require("../models/user");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const auth_1 = require("../middlewares/auth");
 const student_1 = require("../models/student");
 const authRouter = express_1.default.Router();
@@ -22,7 +22,7 @@ function hashPass(pass) {
     return __awaiter(this, void 0, void 0, function* () {
         const saltRounds = 10;
         try {
-            const hashed = yield bcrypt_1.default.hash(pass, saltRounds);
+            const hashed = yield bcryptjs_1.default.hash(pass, saltRounds);
             return hashed;
         }
         catch (ex) {
@@ -61,7 +61,7 @@ authRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const user = yield user_1.User.findOne({ email: req.body.email, uid: req.body.uid });
     if (!user)
         return res.status(401).send("Invalid email or password.");
-    const validPassword = yield bcrypt_1.default.compare(req.body.password, user.password);
+    const validPassword = yield bcryptjs_1.default.compare(req.body.password, user.password);
     if (!validPassword)
         return res.status(401).send("Invalid email or password.");
     const token = user.generateAuthToken();
