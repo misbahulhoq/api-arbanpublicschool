@@ -17,15 +17,17 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const generative_ai_1 = require("@google/generative-ai");
 const chat_1 = __importDefault(require("../models/chat"));
+const data_1 = require("../data/data");
 const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const apollochat = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 const appollochatRouter = express_1.default.Router();
 appollochatRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { prompt } = req.body;
+    const fullPrompt = `${data_1.data}\n\nUser: ${prompt}`;
     try {
         const result = yield apollochat.generateContent(prompt);
         const response = result.response.text();
-        const chat = yield new chat_1.default({ prompt, response }).save();
+        const chat = yield new chat_1.default({ fullPrompt, response }).save();
         res.send(chat);
     }
     catch (error) {
