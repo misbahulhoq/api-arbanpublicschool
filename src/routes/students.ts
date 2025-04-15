@@ -48,8 +48,14 @@ studentsRouter.get(
         .send("The class is not valid.. Class must be between -1 and 10.");
     }
     const query = { class: req.query?.class };
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.page as string) || 10;
 
-    const students = await Student.find(req.query.class !== "all" ? query : {});
+    // const students = await Student.find(req.query.class !== "all" ? query : {});
+    const students = await Student.find(req.query.class !== "all" ? query : {})
+      .skip((page - 1) * limit)
+      .limit(limit);
+    console.log(await Student.countDocuments());
     res.send(students);
   }
 );

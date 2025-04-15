@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { Num, validateNumber } from "../models/number";
 import { Student } from "../models/student";
-import { number } from "joi";
 
 const numbersRouter = express.Router();
 
