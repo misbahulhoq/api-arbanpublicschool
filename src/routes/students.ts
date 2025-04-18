@@ -49,14 +49,23 @@ studentsRouter.get(
     }
     const query = { class: req.query?.class };
     const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.page as string) || 10;
+    const limit = parseInt(req.query.size as string) || 10;
 
     // const students = await Student.find(req.query.class !== "all" ? query : {});
     const students = await Student.find(req.query.class !== "all" ? query : {})
       .skip((page - 1) * limit)
       .limit(limit);
-    console.log(await Student.countDocuments());
-    res.send(students);
+    const allClasses = req.query.class == "all";
+
+    const studentsCount = await Student.countDocuments(
+      allClasses ? undefined : { class: req.query.class }
+    );
+
+    res.send({
+      totalStudents: studentsCount,
+      students,
+      class: req.query.class,
+    });
   }
 );
 
