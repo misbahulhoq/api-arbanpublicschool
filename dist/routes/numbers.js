@@ -42,6 +42,7 @@ numbersRouter.post("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => _
 }));
 numbersRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query;
+    console.log(query);
     if (query) {
         const numbers = yield number_1.Num.find(query);
         return res.send(numbers);

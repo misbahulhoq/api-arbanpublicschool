@@ -50,8 +50,19 @@ studentsRouter.get("/", auth_1.verifyUser, auth_1.verifyTeacher, (req, res, next
             .send("The class is not valid.. Class must be between -1 and 10.");
     }
     const query = { class: (_b = req.query) === null || _b === void 0 ? void 0 : _b.class };
-    const students = yield student_1.Student.find(req.query.class !== "all" ? query : {});
-    res.send(students);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.size) || 10;
+    // const students = await Student.find(req.query.class !== "all" ? query : {});
+    const students = yield student_1.Student.find(req.query.class !== "all" ? query : {})
+        .skip((page - 1) * limit)
+        .limit(limit);
+    const allClasses = req.query.class == "all";
+    const studentsCount = yield student_1.Student.countDocuments(allClasses ? undefined : { class: req.query.class });
+    res.send({
+        totalStudents: studentsCount,
+        students,
+        class: req.query.class,
+    });
 }));
 studentsRouter.get("/:uid", auth_1.verifyUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const student = yield student_1.Student.findOne({ uid: req.params.uid });

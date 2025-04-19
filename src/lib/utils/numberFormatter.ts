@@ -1,12 +1,15 @@
+import { ObjectId } from "mongoose";
+import { Student } from "../../models/student";
+
 export interface Subject {
   name: string;
   fullMarks: number;
   obtMarks: number;
   slug: string;
-  _id?: string;
+  _id: string;
 }
-interface ResultData {
-  _id?: string;
+export interface ResultData {
+  _id: ObjectId;
   uid: string;
   class: string;
   exam: string;
@@ -20,6 +23,17 @@ export function consolidateNumbers(results: ResultData[]) {
   const consolidated: {
     [key: string]: {
       uid: string;
+      student?: {
+        _id?: ObjectId;
+        uid: string;
+        class: string;
+        name: string;
+        phone: string;
+        email: string;
+        fathersName: string;
+        mothersName: string;
+        year: number;
+      };
       firstTutorial: Subject[];
       firstSemester: Subject[];
       secondTutorial: Subject[];
@@ -64,4 +78,13 @@ export function consolidateNumbers(results: ResultData[]) {
 
   // Return the consolidated objects as an array
   return Object.values(consolidated);
+}
+
+async function getStudentInfo(uid: string) {
+  try {
+    const student = await Student.findOne({ uid: uid });
+    return student;
+  } catch (error) {
+    return null;
+  }
 }
