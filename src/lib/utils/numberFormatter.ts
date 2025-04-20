@@ -23,6 +23,8 @@ export function consolidateNumbers(results: ResultData[]) {
   const consolidated: {
     [key: string]: {
       uid: string;
+      // level is refering to the class. as the class keyword is reserved.
+      level: string;
       student?: {
         _id?: ObjectId;
         uid: string;
@@ -50,6 +52,7 @@ export function consolidateNumbers(results: ResultData[]) {
       // Initialize the consolidated object for this uid
       consolidated[uid] = {
         uid,
+        level: result.class,
         ...rest,
         firstTutorial: [],
         firstSemester: [],
