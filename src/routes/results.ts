@@ -2,7 +2,6 @@ import e from "express";
 import { verifyTeacher, verifyUser } from "../middlewares/auth";
 import { Num } from "../models/number";
 import { consolidateNumbers, ResultData } from "../lib/utils/numberFormatter";
-import { Student } from "../models/student";
 import { ResultPropsType } from "../types/ResultPropsType";
 import { positionFormatter } from "../utils/positionFormatter";
 
@@ -97,7 +96,7 @@ results.get("/", async (req, res) => {
       ? tableData.reduce((sum, av) => sum + av.GPA, 0) / tableData.length
       : 0;
 
-    // updatedProps.tableData = tableData;
+    updatedProps.tableData = tableData;
     updatedProps.totalAverageMarks = totalAverageMarks;
     updatedProps.totalGPA = totalGPA;
     updatedProps.averageGPA = averageGPA;
