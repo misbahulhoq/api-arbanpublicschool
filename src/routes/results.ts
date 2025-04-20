@@ -123,7 +123,16 @@ results.get("/", async (req, res) => {
   }
   // sort the array according to averageGPA if high school
   if (isHighSchool) {
-    resultWithAverage.sort((a: any, b: any) => b.averageGPA - a.averageGPA);
+    resultWithAverage.sort((a, b) => {
+      if (
+        a.totalAverageMarks &&
+        b.totalAverageMarks &&
+        a.averageGPA === b.averageGPA
+      )
+        return b?.totalAverageMarks - a?.totalAverageMarks;
+      if (a.averageGPA && b.averageGPA) return b.averageGPA - a.averageGPA;
+      return 0;
+    });
   }
 
   const resultWithPosition = resultWithAverage.map((item, index) => {
