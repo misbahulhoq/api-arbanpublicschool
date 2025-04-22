@@ -4,6 +4,7 @@ import { Num } from "../models/number";
 import { consolidateNumbers, ResultData } from "../lib/utils/numberFormatter";
 import { ResultPropsType } from "../types/ResultPropsType";
 import { positionFormatter } from "../utils/positionFormatter";
+import Exam from "../models/exams";
 
 const results = e.Router();
 
@@ -11,6 +12,12 @@ results.get("/", async (req, res) => {
   const query = req.query;
   const numbers = await Num.find(query);
   const formattedNums = consolidateNumbers(numbers as unknown as ResultData[]);
+  const exams = await Exam.find({ examYear: req.query.examYear });
+  const examCodes = exams.map((item) => {
+    return item.examCode;
+  });
+  console.log(examCodes);
+
   const resultWithAverage = formattedNums.map((props) => {
     const updatedProps: Partial<ResultPropsType> = {
       uid: props.uid,
@@ -26,6 +33,7 @@ results.get("/", async (req, res) => {
         ...props.thirdSemester.map((item) => item.name),
       ]),
     ];
+    console.log(subjects);
     // Prepare table data
     const tableData = subjects.map((subject) => {
       const firstTutorial = props.firstTutorial.find(
