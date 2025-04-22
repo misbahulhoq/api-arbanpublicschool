@@ -103,17 +103,13 @@ results.get("/", async (req, res) => {
     return updatedProps;
   });
 
-  const isPrimarySchool = ["1", "2", "3", "4", "5"].includes(
+  const isPrimarySchool = ["-1", "0", "1", "2", "3", "4", "5"].includes(
     req.query.class as string
   );
   const isHighSchool = ["6", "7", "8", "9", "10"].includes(
     req.query.class as string
   );
 
-  console.log({
-    isPrimarySchool,
-    isHighSchool,
-  });
   // sort the array according to totalAverageMarks if primary school
   if (isPrimarySchool) {
     resultWithAverage.sort(
