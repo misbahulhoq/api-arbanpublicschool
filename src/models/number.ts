@@ -42,7 +42,6 @@ const numberSchema = new Schema({
       name: { type: String, required: true },
       fullMarks: { type: Number, required: true },
       obtMarks: { type: Number, required: true },
-      percentage: { type: Number, required: true },
       slug: { type: String, required: true },
     },
   ],

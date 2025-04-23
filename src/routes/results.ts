@@ -128,14 +128,17 @@ results.get("/", async (req, res) => {
   // sort the array according to averageGPA if high school
   if (isHighSchool) {
     resultWithAverage.sort((a, b) => {
-      if (
-        a.totalAverageMarks &&
-        b.totalAverageMarks &&
-        a.averageGPA === b.averageGPA
-      )
-        return b?.totalAverageMarks - a?.totalAverageMarks;
-      if (a.averageGPA && b.averageGPA) return b.averageGPA - a.averageGPA;
-      return 0;
+      const gpaA = a.averageGPA ?? -Infinity;
+      const gpaB = b.averageGPA ?? -Infinity;
+
+      const marksA = a.totalAverageMarks ?? -Infinity;
+      const marksB = b.totalAverageMarks ?? -Infinity;
+
+      if (gpaA === gpaB) {
+        return marksB - marksA; // Sort by marks if GPA is same
+      }
+
+      return gpaB - gpaA; // Sort by GPA
     });
   }
 
