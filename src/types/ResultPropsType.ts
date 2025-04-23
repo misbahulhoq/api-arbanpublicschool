@@ -2,12 +2,12 @@ export interface ResultPropsType {
   uid: string;
   tableData?: {
     subject: string;
-    marks1: number;
-    marks2: number;
-    marks3: number;
-    marks4: number;
-    marks5: number;
-    marks6: number;
+    marks1?: number;
+    marks2?: number;
+    marks3?: number;
+    marks4?: number;
+    marks5?: number;
+    marks6?: number;
     totalMarks: number;
     average: number;
     GPA: number;

@@ -82,12 +82,12 @@ results.get("/", async (req, res) => {
       else GPA = 0;
       return {
         subject,
-        marks1,
-        marks2,
-        marks3,
-        marks4,
-        marks5,
-        marks6,
+        ...(marks1 && { marks1 }),
+        ...(marks2 && { marks2 }),
+        ...(marks3 && { marks3 }),
+        ...(marks4 && { marks4 }),
+        ...(marks5 && { marks5 }),
+        ...(marks6 && { marks6 }),
         totalMarks,
         average,
         GPA,
