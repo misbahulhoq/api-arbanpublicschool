@@ -16,7 +16,6 @@ results.get("/", async (req, res) => {
   const examCodes = exams.map((item) => {
     return item.examCode;
   });
-  console.log(examCodes);
 
   const resultWithAverage = formattedNums.map((props) => {
     const updatedProps: Partial<ResultPropsType> = {
@@ -33,7 +32,6 @@ results.get("/", async (req, res) => {
         ...props.thirdSemester.map((item) => item.name),
       ]),
     ];
-    console.log(subjects);
     // Prepare table data
     const tableData = subjects.map((subject) => {
       const firstTutorial = props.firstTutorial.find(
@@ -64,10 +62,13 @@ results.get("/", async (req, res) => {
       const fullMarks = firstSemester?.fullMarks;
       const totalMarks = marks1 + marks2 + marks3;
       let average: string | number = (
-        (marks1 + marks2 + marks3) /
-        ((firstSemester ? 1 : 0) +
-          (secondSemester ? 1 : 0) +
-          (thirdSemester ? 1 : 0))
+        (marks1 + marks2 + marks3 + marks4 + marks5 + marks6) /
+        ((examCodes.includes("2401") ? 1 : 0) +
+          (examCodes.includes("2402") ? 1 : 0) +
+          (examCodes.includes("2403") ? 1 : 0) +
+          (examCodes.includes("2404") ? 1 : 0) +
+          (examCodes.includes("2405") ? 1 : 0) +
+          (examCodes.includes("2406") ? 1 : 0))
       ).toFixed(2);
 
       average = parseFloat(average);

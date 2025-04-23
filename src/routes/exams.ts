@@ -10,7 +10,7 @@ examsRouter.post("/", async (req, res) => {
 
 examsRouter.get("/", async (req, res) => {
   const exams = await Exam.find(req.query);
-  res.send(exams);
+  res.send(exams.map((exam) => exam.examCode));
 });
 
 export default examsRouter;
