@@ -12,6 +12,7 @@ import teachersRouter from "../routes/teacher";
 import appollochatRouter from "../routes/apollochat";
 import results from "../routes/results";
 import examsRouter from "../routes/exams";
+import tabularsheet from "../routes/tabularsheet";
 
 export default function routes(app: Express) {
   app.use("/auth", authRouter);
@@ -27,4 +28,5 @@ export default function routes(app: Express) {
   app.use("/apollochat", appollochatRouter);
   app.use("/results", results);
   app.use("/exams", examsRouter);
+  app.use("/tabularsheet", tabularsheet);
 }
