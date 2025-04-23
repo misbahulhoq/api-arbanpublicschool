@@ -8,7 +8,7 @@ import Exam from "../models/exams";
 
 const results = e.Router();
 
-results.get("/", verifyTeacher, async (req, res) => {
+results.get("/", verifyUser, verifyTeacher, async (req, res) => {
   const query = req.query;
   const numbers = await Num.find(query);
   const formattedNums = consolidateNumbers(numbers as unknown as ResultData[]);
