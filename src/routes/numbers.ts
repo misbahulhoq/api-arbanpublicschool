@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import { Num, validateNumber } from "../models/number";
 import { Student } from "../models/student";
-import { number } from "joi";
 
 const numbersRouter = express.Router();
 
@@ -44,6 +43,7 @@ numbersRouter.get(
   verifyTeacher,
   async (req: Request, res: Response) => {
     const query = req.query;
+    console.log(query);
     if (query) {
       const numbers = await Num.find(query);
       return res.send(numbers);
