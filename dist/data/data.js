@@ -49,8 +49,8 @@ ${model_1.modelInfo}
 ${authorInfo_1.authorInfo}
 ---
 
+Keep this in your mind:
 ${instructions_1.instructions}
-
 
 
 `;

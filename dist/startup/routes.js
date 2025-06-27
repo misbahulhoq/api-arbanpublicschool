@@ -16,6 +16,8 @@ const events_1 = __importDefault(require("../routes/events"));
 const teacher_1 = __importDefault(require("../routes/teacher"));
 const apollochat_1 = __importDefault(require("../routes/apollochat"));
 const results_1 = __importDefault(require("../routes/results"));
+const exams_1 = __importDefault(require("../routes/exams"));
+const tabularsheet_1 = __importDefault(require("../routes/tabularsheet"));
 function routes(app) {
     app.use("/auth", auth_1.default);
     app.use("/students", students_1.default);
@@ -29,4 +31,6 @@ function routes(app) {
     app.use("/events", events_1.default);
     app.use("/apollochat", apollochat_1.default);
     app.use("/results", results_1.default);
+    app.use("/exams", exams_1.default);
+    app.use("/tabularsheet", tabularsheet_1.default);
 }

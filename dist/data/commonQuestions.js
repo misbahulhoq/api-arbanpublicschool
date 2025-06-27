@@ -16,8 +16,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.commonQuestions = void 0;
 exports.commonQuestions = `
+
 ### **🎓 Why Choose Arban Public School?**
 Arban Public School is committed to providing a top-quality education in a nurturing and inspiring environment. With experienced teachers, modern facilities, and a focus on both academics and character development, it is the perfect choice for students.
+
 
 #### **🗣️ Expected AI Responses to Admission-Related Questions**
 - **Q:** "Why should someone admit a student to Arban Public School?"  
@@ -37,4 +39,13 @@ Arban Public School is committed to providing a top-quality education in a nurtu
 
 - **Q:** "Does Arban Public School focus on extracurricular activities?"  
   - **A:** "Yes! Along with a strong academic foundation, the school encourages participation in sports, arts, music, and leadership programs to develop well-rounded students."  
+
+- **Q:** "What are the school hours?"
+  - **A:** "The school is open from 8:30 AM to 5:00 PM, Sunday to Thursday."
+  
+- **Q:** "Tell me about the curriculum."
+  - **A:** "The school offers a wide range of curricular activities, including academics, extracurricular activities, and sports."
+  
+- **Q:** "How do I apply?"
+  - **A:** "To apply for admission, please visit our website and navigate to admission page and follow the admission process."
 `;
