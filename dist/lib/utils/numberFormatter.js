@@ -28,7 +28,7 @@ function consolidateNumbers(results) {
         const { uid, examCode, subjects } = result, rest = __rest(result, ["uid", "examCode", "subjects"]);
         if (!consolidated[uid]) {
             // Initialize the consolidated object for this uid
-            consolidated[uid] = Object.assign(Object.assign({ uid }, rest), { firstTutorial: [], firstSemester: [], secondTutorial: [], secondSemester: [], thirdTutorial: [], thirdSemester: [] });
+            consolidated[uid] = Object.assign(Object.assign({ uid, level: result.class }, rest), { firstTutorial: [], firstSemester: [], secondTutorial: [], secondSemester: [], thirdTutorial: [], thirdSemester: [] });
         }
         // Add subjects to the appropriate semester based on examCode
         if (examCode === "2401") {

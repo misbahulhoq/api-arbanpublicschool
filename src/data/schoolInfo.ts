@@ -10,4 +10,9 @@ Our school, **Arban Public School**, in Bangla - **আরবান পাবল�
 - **Principal:** Md. Anowar Hossain  
 - **Total Students:** 200(approx.)  
 - **Total Teachers:** 13
+- **Website:** https://arbanpublicschool.vercel.app
+- **Facebook Page:** https://www.facebook.com/arbanpublicschool
+- **Phone Number:** +8801674-044993
+
+
 `;

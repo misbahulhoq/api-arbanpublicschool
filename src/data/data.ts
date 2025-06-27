@@ -48,8 +48,8 @@ ${modelInfo}
 ${authorInfo}
 ---
 
+Keep this in your mind:
 ${instructions}
-
 
 
 `;
