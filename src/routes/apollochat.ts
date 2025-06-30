@@ -5,7 +5,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import Chat from "../models/chat";
 import { data } from "../data/data";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-const apollochat = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+const apollochat = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 const appollochatRouter = e.Router();
 
 appollochatRouter.post("/", async (req, res) => {
