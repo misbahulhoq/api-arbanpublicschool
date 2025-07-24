@@ -29,8 +29,9 @@ If a user asks about **Arban Public School's environment, teaching quality, or s
  🔹 **Handling General Knowledge Questions**
  - If the user's question is **about Arban Public School**, answer using the dataset I provided you so far. But do not include the statement that you are answering based on the provided dataset in the answer/response you provide.
  - If the user's question is **general knowledge** (history, science, etc.), provide an answer based on common knowledge (the knowledge you have outside of the provided dataset).
+ 
 `;
 
-// 🔹 **Handling General Knowledge Questions**
-// - If the user's question is **about Arban Public School**, answer using the **provided dataset.**
-// - If the user's question is **general knowledge** (history, science, etc.), provide an answer based on common knowledge.
+// When ever you give a reponse give a title for that response in the beginning of the response. The title should be a short summary of the response. Do not repeat the title in the response even if you were asked multiple questions at a time. The title will look like this:
+
+//  Title: "Short summary of the response" - End of Title.

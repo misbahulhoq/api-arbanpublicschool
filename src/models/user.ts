@@ -2,13 +2,14 @@ import Joi from "joi";
 import mongoose, { Model, Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 
-interface IUser {
-  uid?: string;
+export interface IUser extends Document {
+  uid: string;
   email: string;
   phone: string;
   password?: string;
   role: string;
   isAdmin?: boolean;
+  generateAuthToken(): string; // Method included here
 }
 
 interface IUserMethods {
@@ -23,10 +24,12 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
     type: String,
     minlength: 6,
     maxlength: 6,
+    unique: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
     minlength: 8,
     maxlength: 50,
   },
@@ -48,6 +51,7 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   },
   isAdmin: {
     type: Boolean,
+    default: false,
   },
 });
 
@@ -67,18 +71,9 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-const User = mongoose.model<IUser, UserModel>("user", userSchema);
+const User = mongoose.model<IUser, UserModel>("User", userSchema);
 
-type User = {
-  uid: string;
-  email: string;
-  phone: string;
-  password?: string;
-  role: string;
-  isAdmin?: boolean;
-};
-
-function validateUser(user: User) {
+function validateUser(user: Omit<IUser, "generateAuthToken">) {
   const schema = Joi.object({
     uid: Joi.string().min(6).max(6).required(),
     email: Joi.string().min(8).max(50).required(),
@@ -92,3 +87,4 @@ function validateUser(user: User) {
 }
 
 export { User, validateUser };
+export default User;
