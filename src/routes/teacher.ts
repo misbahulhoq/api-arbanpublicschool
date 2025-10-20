@@ -3,7 +3,7 @@ import { verifyAdmin, verifyTeacher, verifyUser } from "../middlewares/auth";
 import Teacher, { validateTeacher } from "../models/teacher";
 const teachersRouter = e.Router();
 
-teachersRouter.get("/", async (req, res) => {
+teachersRouter.get("/", async (_req, res) => {
   const allTeachers = await Teacher.find();
   res.send(allTeachers);
 });
